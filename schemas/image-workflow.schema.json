@@ -1,0 +1,317 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/image-workflow.schema.json",
+  "title": "ImageToVideoWorkflow",
+  "type": "object",
+  "required": [
+    "mode",
+    "approvedAssets",
+    "script",
+    "project"
+  ],
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": [
+        "infographic",
+        "xhs-card-series",
+        "direct-assets-to-video"
+      ]
+    },
+    "plan": {
+      "type": "object",
+      "required": [
+        "mode",
+        "topic",
+        "aspectRatio",
+        "backend",
+        "promptRecords",
+        "confirmationRequired"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "infographic",
+            "xhs-card-series",
+            "direct-assets-to-video"
+          ]
+        },
+        "topic": {
+          "type": "string"
+        },
+        "layout": {
+          "type": "string"
+        },
+        "style": {
+          "type": "string"
+        },
+        "aspectRatio": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "backend": {
+          "type": "string"
+        },
+        "confirmationRequired": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "promptRecords": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "type",
+              "promptFile",
+              "aspectRatio"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "cover",
+                  "card",
+                  "infographic",
+                  "supporting-image"
+                ]
+              },
+              "promptFile": {
+                "type": "string"
+              },
+              "aspectRatio": {
+                "type": "string"
+              },
+              "language": {
+                "type": "string"
+              },
+              "promptSummary": {
+                "type": "string"
+              },
+              "references": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "refId",
+                    "path",
+                    "usage"
+                  ],
+                  "properties": {
+                    "refId": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "usage": {
+                      "type": "string",
+                      "enum": [
+                        "direct",
+                        "style",
+                        "palette"
+                      ]
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "approvedAssets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "path",
+          "source",
+          "approved"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "width": {
+            "type": "number"
+          },
+          "height": {
+            "type": "number"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "generated",
+              "uploaded"
+            ]
+          },
+          "approved": {
+            "type": "boolean"
+          },
+          "promptRecordId": {
+            "type": "string"
+          },
+          "order": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "focusRegions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "label",
+                "x",
+                "y",
+                "w",
+                "h"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "w": {
+                  "type": "number"
+                },
+                "h": {
+                  "type": "number"
+                },
+                "importance": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 5
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "script": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "text"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "intent": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          }
+        }
+      }
+    },
+    "project": {
+      "type": "object",
+      "required": [
+        "title",
+        "aspectRatio",
+        "style",
+        "pace",
+        "durationTarget"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "aspectRatio": {
+          "type": "string",
+          "enum": [
+            "9:16"
+          ]
+        },
+        "style": {
+          "type": "string"
+        },
+        "pace": {
+          "type": "string",
+          "enum": [
+            "fast",
+            "medium",
+            "steady"
+          ]
+        },
+        "durationTarget": {
+          "type": "number",
+          "minimum": 3,
+          "maximum": 120
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "properties": {
+        "maxSceneCount": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 30
+        },
+        "maxCaptionCharsPerLine": {
+          "type": "integer",
+          "minimum": 6,
+          "maximum": 20
+        },
+        "allowGlitch": {
+          "type": "boolean"
+        },
+        "allowParallax": {
+          "type": "boolean"
+        },
+        "needSubtitles": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

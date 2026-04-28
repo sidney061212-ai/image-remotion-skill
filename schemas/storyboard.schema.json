@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/storyboard.schema.json",
+  "title": "TikTokStoryboardOutput",
+  "type": "object",
+  "required": ["videoMeta", "scenes"],
+  "properties": {
+    "videoMeta": {
+      "type": "object",
+      "required": ["duration", "aspectRatio", "theme"],
+      "properties": {
+        "duration": {"type": "number"},
+        "aspectRatio": {"type": "string"},
+        "theme": {"type": "string"},
+        "fps": {"type": "integer"}
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["sceneId", "start", "end", "template"],
+        "properties": {
+          "sceneId": {"type": "string"},
+          "start": {"type": "number"},
+          "end": {"type": "number"},
+          "scriptRef": {"type": "string"},
+          "assetRef": {"type": "string"},
+          "template": {"type": "string"},
+          "focusRegion": {"type": "string"},
+          "caption": {"type": "string"},
+          "transitionIn": {"type": "string"},
+          "transitionOut": {"type": "string"},
+          "motion": {"type": "object"},
+          "overlay": {"type": "object"},
+          "bullets": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "analysis": {"type": "object"}
+  }
+}

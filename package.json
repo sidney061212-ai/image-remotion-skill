@@ -1,0 +1,49 @@
+{
+  "name": "image-remotion-skill",
+  "version": "0.1.0",
+  "description": "Open-source image-to-storyboard skill and fixed Remotion template kit for short-form videos.",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "skill",
+    "schemas",
+    "examples",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepack": "npm run build",
+    "dev": "remotion studio src/remotion/index.ts",
+    "render:example": "bash ./render.sh examples/example-infogram-plan.json out/video.mp4",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [
+    "remotion",
+    "tiktok",
+    "storyboard",
+    "ai",
+    "short-video",
+    "templates"
+  ],
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.452",
+    "remotion": "^4.0.340"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.8.3"
+  }
+}

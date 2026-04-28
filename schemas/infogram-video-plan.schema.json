@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "InfogramVideoPlan",
+  "description": "Data-driven video plan for single-image camera motion videos. AI generates this JSON from an image + script/voiceover.",
+  "type": "object",
+  "required": ["image", "imageWidth", "imageHeight", "outputWidth", "outputHeight", "fps", "durationSeconds", "keyframes"],
+  "properties": {
+    "image": {
+      "type": "string",
+      "description": "Path to the image file relative to the Remotion public/ directory"
+    },
+    "imageWidth": { "type": "integer", "description": "Source image width in pixels" },
+    "imageHeight": { "type": "integer", "description": "Source image height in pixels" },
+    "outputWidth": {
+      "type": "integer",
+      "default": 2560,
+      "description": "Output video width. 1920 for 1080p, 2560 for 2K"
+    },
+    "outputHeight": {
+      "type": "integer",
+      "default": 1440,
+      "description": "Output video height. 1080 for 1080p, 1440 for 2K"
+    },
+    "fps": {
+      "type": "integer",
+      "default": 90,
+      "description": "Frame rate. 60 or 90 recommended for smooth panning"
+    },
+    "durationSeconds": {
+      "type": "number",
+      "description": "Total video duration in seconds, must match the script/voiceover length"
+    },
+    "whipPanThreshold": {
+      "type": "number",
+      "default": 8,
+      "description": "Velocity threshold (px/frame) above which whip-pan blur activates"
+    },
+    "whipPanBlurMax": {
+      "type": "number",
+      "default": 40,
+      "description": "Maximum blur in pixels during whip-pan"
+    },
+    "keyframes": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["time", "cx", "cy", "scale"],
+        "properties": {
+          "time": {
+            "type": "number",
+            "description": "Time in seconds from video start"
+          },
+          "cx": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Camera center X on image, normalized 0-1 (0=left, 1=right)"
+          },
+          "cy": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Camera center Y on image, normalized 0-1 (0=top, 1=bottom)"
+          },
+          "scale": {
+            "type": "number",
+            "minimum": 1.0,
+            "description": "Zoom level. 1.0=fit whole image, 2.5=close-up on a region"
+          },
+          "label": {
+            "type": "string",
+            "description": "Optional label for this keyframe, used for debugging"
+          }
+        }
+      }
+    }
+  }
+}

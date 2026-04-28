@@ -1,0 +1,83 @@
+{
+  "image": "examples/demo-infographic.svg",
+  "imageWidth": 1080,
+  "imageHeight": 1920,
+  "outputWidth": 1080,
+  "outputHeight": 1920,
+  "fps": 60,
+  "durationSeconds": 16,
+  "whipPanThreshold": 8,
+  "whipPanBlurMax": 40,
+  "keyframes": [
+    {
+      "time": 0,
+      "cx": 0.5,
+      "cy": 0.5,
+      "scale": 1,
+      "label": "全图开场"
+    },
+    {
+      "time": 1.8,
+      "cx": 0.5,
+      "cy": 0.5,
+      "scale": 1,
+      "label": "全图停留"
+    },
+    {
+      "time": 3.8,
+      "cx": 0.5,
+      "cy": 0.2,
+      "scale": 2.2,
+      "label": "推进标题区"
+    },
+    {
+      "time": 5.8,
+      "cx": 0.5,
+      "cy": 0.2,
+      "scale": 2.2,
+      "label": "标题区停留"
+    },
+    {
+      "time": 6.1,
+      "cx": 0.24,
+      "cy": 0.5,
+      "scale": 2.5,
+      "label": "甩镜到左侧数据块"
+    },
+    {
+      "time": 8.1,
+      "cx": 0.24,
+      "cy": 0.5,
+      "scale": 2.5,
+      "label": "左侧停留"
+    },
+    {
+      "time": 8.4,
+      "cx": 0.76,
+      "cy": 0.5,
+      "scale": 2.5,
+      "label": "甩镜到右侧数据块"
+    },
+    {
+      "time": 10.6,
+      "cx": 0.76,
+      "cy": 0.5,
+      "scale": 2.5,
+      "label": "右侧停留"
+    },
+    {
+      "time": 12.2,
+      "cx": 0.5,
+      "cy": 0.84,
+      "scale": 2.1,
+      "label": "推进结论区"
+    },
+    {
+      "time": 16,
+      "cx": 0.5,
+      "cy": 0.84,
+      "scale": 2.1,
+      "label": "结论区停留"
+    }
+  ]
+}

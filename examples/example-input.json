@@ -1,0 +1,72 @@
+{
+  "project": {
+    "title": "政策截图重点解析",
+    "aspectRatio": "9:16",
+    "style": "tiktok-explainer",
+    "pace": "fast",
+    "durationTarget": 8
+  },
+  "script": [
+    {
+      "id": "line1",
+      "text": "很多人第一眼就看错了",
+      "intent": "HOOK",
+      "priority": 5
+    },
+    {
+      "id": "line2",
+      "text": "真正的重点在右上角这一行",
+      "intent": "FOCUS",
+      "priority": 5
+    },
+    {
+      "id": "line3",
+      "text": "这个数字变化才是关键",
+      "intent": "EVIDENCE",
+      "priority": 4
+    },
+    {
+      "id": "line4",
+      "text": "最后记住这一点就够了",
+      "intent": "ENDING",
+      "priority": 4
+    }
+  ],
+  "assets": [
+    {
+      "id": "img1",
+      "type": "screenshot",
+      "path": "/examples/demo-infographic.svg",
+      "description": "示例信息图，右上区域有关键数字块",
+      "width": 1080,
+      "height": 1920,
+      "focusRegions": [
+        {
+          "id": "r1",
+          "label": "标题",
+          "x": 120,
+          "y": 160,
+          "w": 760,
+          "h": 180,
+          "importance": 4
+        },
+        {
+          "id": "r2",
+          "label": "关键数字",
+          "x": 770,
+          "y": 280,
+          "w": 180,
+          "h": 120,
+          "importance": 5
+        }
+      ]
+    }
+  ],
+  "constraints": {
+    "maxSceneCount": 6,
+    "maxCaptionCharsPerLine": 12,
+    "allowGlitch": false,
+    "allowParallax": false,
+    "needSubtitles": true
+  }
+}

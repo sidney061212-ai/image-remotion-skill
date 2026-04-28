@@ -1,0 +1,9 @@
+node_modules
+dist
+out
+outputs
+public/generated
+public/showcase
+public/shipping-hormuz-alert
+.DS_Store
+*.log

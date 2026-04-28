@@ -1,0 +1,76 @@
+{
+  "videoMeta": {
+    "duration": 6.8,
+    "aspectRatio": "9:16",
+    "theme": "tiktok-explainer",
+    "fps": 30
+  },
+  "scenes": [
+    {
+      "sceneId": "s1",
+      "start": 0,
+      "end": 0.9,
+      "scriptRef": "line1",
+      "assetRef": "img1",
+      "template": "T01_HookZoomHit",
+      "focusRegion": "r1",
+      "caption": "很多人第一眼就看错了",
+      "motion": {
+        "scaleFrom": 1,
+        "scaleTo": 1.12,
+        "shake": 0.8
+      },
+      "transitionIn": "cut",
+      "transitionOut": "flash"
+    },
+    {
+      "sceneId": "s2",
+      "start": 0.9,
+      "end": 2.6,
+      "scriptRef": "line2",
+      "assetRef": "img1",
+      "template": "T03_FocusBoxPush",
+      "focusRegion": "r2",
+      "caption": "真正的重点在右上角这一行",
+      "motion": {
+        "boxHighlight": true,
+        "scaleFrom": 1,
+        "scaleTo": 1.18
+      },
+      "transitionIn": "flash",
+      "transitionOut": "cut"
+    },
+    {
+      "sceneId": "s3",
+      "start": 2.6,
+      "end": 5,
+      "scriptRef": "line3",
+      "assetRef": "img1",
+      "template": "T11_EvidencePin",
+      "focusRegion": "r2",
+      "caption": "这个数字变化才是关键",
+      "overlay": {
+        "arrow": true,
+        "label": "答案关键"
+      },
+      "transitionIn": "cut",
+      "transitionOut": "cut"
+    },
+    {
+      "sceneId": "s4",
+      "start": 5,
+      "end": 6.8,
+      "scriptRef": "line4",
+      "assetRef": "img1",
+      "template": "T16_OutroLoopCard",
+      "caption": "最后记住这一点就够了",
+      "motion": {
+        "loopZoom": true,
+        "scaleFrom": 1.04,
+        "scaleTo": 1.08
+      },
+      "transitionIn": "cut",
+      "transitionOut": "fade"
+    }
+  ]
+}

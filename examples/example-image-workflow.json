@@ -1,0 +1,114 @@
+{
+  "mode": "xhs-card-series",
+  "plan": {
+    "mode": "xhs-card-series",
+    "topic": "AI做小红书信息卡并转短视频",
+    "layout": "cover-plus-cards",
+    "style": "clean-social-card",
+    "aspectRatio": "3:4",
+    "language": "zh",
+    "backend": "baoyu-imagine",
+    "confirmationRequired": true,
+    "notes": [
+      "card-01 serves as the anchor reference for later cards",
+      "approved cards are converted to vertical video scenes after confirmation"
+    ],
+    "promptRecords": [
+      {
+        "id": "p01",
+        "type": "cover",
+        "promptFile": "prompts/01-cover-ai-xhs.md",
+        "aspectRatio": "3:4",
+        "language": "zh",
+        "promptSummary": "封面卡，强标题，对比色，高可读性"
+      },
+      {
+        "id": "p02",
+        "type": "card",
+        "promptFile": "prompts/02-card-pipeline.md",
+        "aspectRatio": "3:4",
+        "language": "zh",
+        "promptSummary": "流程卡，展示先出图再转视频的步骤",
+        "references": [
+          {
+            "refId": "r01",
+            "path": "outputs/cards/card-01.png",
+            "usage": "direct",
+            "description": "anchor card for style consistency"
+          }
+        ]
+      }
+    ]
+  },
+  "approvedAssets": [
+    {
+      "id": "card01",
+      "type": "poster",
+      "path": "outputs/cards/card-01.png",
+      "description": "封面卡",
+      "width": 1242,
+      "height": 1660,
+      "source": "generated",
+      "approved": true,
+      "promptRecordId": "p01",
+      "order": 1
+    },
+    {
+      "id": "card02",
+      "type": "poster",
+      "path": "outputs/cards/card-02.png",
+      "description": "流程说明卡",
+      "width": 1242,
+      "height": 1660,
+      "source": "generated",
+      "approved": true,
+      "promptRecordId": "p02",
+      "order": 2,
+      "focusRegions": [
+        {
+          "id": "f01",
+          "label": "步骤列表",
+          "x": 120,
+          "y": 420,
+          "w": 920,
+          "h": 820,
+          "importance": 5
+        }
+      ]
+    }
+  ],
+  "script": [
+    {
+      "id": "line1",
+      "text": "先把卡片图做对，再去做视频",
+      "intent": "HOOK",
+      "priority": 5
+    },
+    {
+      "id": "line2",
+      "text": "第一张负责抓眼球，后面几张负责讲清流程",
+      "intent": "STEP",
+      "priority": 4
+    },
+    {
+      "id": "line3",
+      "text": "用户确认图片之后，再进入Remotion模板阶段",
+      "intent": "ENDING",
+      "priority": 4
+    }
+  ],
+  "project": {
+    "title": "小红书卡片转短视频",
+    "aspectRatio": "9:16",
+    "style": "xhs-to-remotion",
+    "pace": "medium",
+    "durationTarget": 12
+  },
+  "constraints": {
+    "maxSceneCount": 8,
+    "maxCaptionCharsPerLine": 14,
+    "allowGlitch": false,
+    "allowParallax": true,
+    "needSubtitles": true
+  }
+}
