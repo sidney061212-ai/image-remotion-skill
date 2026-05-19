@@ -426,6 +426,8 @@ export type TemplateBackground = 'blur' | 'solid' | 'gradient' | 'none';
 
 export type TemplateFitMode = 'contain' | 'cover';
 
+export type TemplateVisualTreatment = 'default' | 'debug';
+
 export interface TemplateAsset {
   id: string;
   path: string;
@@ -456,6 +458,8 @@ export interface TemplateRenderRequest {
     background?: TemplateBackground;
     fit?: TemplateFitMode;
     safeMode?: boolean;
+    visualTreatment?: TemplateVisualTreatment;
+    debugOverlay?: boolean;
   };
 }
 

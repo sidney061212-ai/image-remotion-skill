@@ -157,6 +157,7 @@ const runRemotionRender = async (
         compositionId,
         outputAbsolutePath,
         `--props=${JSON.stringify(props)}`,
+        `--concurrency=${process.env.REMOTION_CONCURRENCY ?? '2'}`,
       ],
       {
         cwd: projectRoot,

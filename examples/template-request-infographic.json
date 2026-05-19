@@ -10,10 +10,10 @@
   "assets": [
     {
       "id": "infographic-demo",
-      "path": "examples/demo-infographic.svg",
+      "path": "examples/demo-infographic-clean.svg",
       "width": 1080,
       "height": 1920,
-      "label": "Template infographic demo"
+      "label": "Clean template infographic demo"
     }
   ],
   "text": {

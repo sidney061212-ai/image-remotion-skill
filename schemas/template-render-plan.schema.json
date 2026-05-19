@@ -125,6 +125,13 @@
         },
         "safeMode": {
           "type": "boolean"
+        },
+        "visualTreatment": {
+          "type": "string",
+          "enum": ["default", "debug"]
+        },
+        "debugOverlay": {
+          "type": "boolean"
         }
       }
     },

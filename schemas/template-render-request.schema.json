@@ -172,6 +172,15 @@
         "safeMode": {
           "type": "boolean",
           "description": "When true, prefer conservative motions and safer template behaviors."
+        },
+        "visualTreatment": {
+          "type": "string",
+          "enum": ["default", "debug"],
+          "description": "Optional visual treatment. Use debug only when focus or panel boundaries should be displayed."
+        },
+        "debugOverlay": {
+          "type": "boolean",
+          "description": "When true, templates may show debug-only focus frames or panel boundaries."
         }
       }
     }

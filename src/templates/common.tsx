@@ -444,6 +444,102 @@ export const FloatingImageCard: React.FC<{
   </div>
 );
 
+export const NaturalImageLayer: React.FC<{
+  src: string;
+  fit?: TemplateFitMode;
+  x?: number;
+  y?: number;
+  scale?: number;
+  width?: string | number;
+  height?: string | number;
+  transformOrigin?: string;
+  borderRadius?: number;
+  subtleShadow?: boolean;
+  style?: React.CSSProperties;
+  imgStyle?: React.CSSProperties;
+}> = ({
+  src,
+  fit = 'contain',
+  x = 0,
+  y = 0,
+  scale = 1,
+  width = '100%',
+  height = '100%',
+  transformOrigin = 'center',
+  borderRadius = 0,
+  subtleShadow = false,
+  style,
+  imgStyle,
+}) => (
+  <div
+    style={{
+      width,
+      height,
+      position: 'relative',
+      overflow: borderRadius > 0 ? 'hidden' : 'visible',
+      borderRadius,
+      transform: `translate(${x}px, ${y}px) scale(${scale})`,
+      transformOrigin,
+      boxShadow: subtleShadow ? '0 14px 44px rgba(5, 16, 32, 0.12)' : 'none',
+      ...style,
+    }}
+  >
+    <Img
+      src={src}
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: fit,
+        display: 'block',
+        ...imgStyle,
+      }}
+    />
+  </div>
+);
+
+export const shouldShowDebugOverlay = (plan: TemplateRenderPlan): boolean =>
+  plan.options?.visualTreatment === 'debug' || plan.options?.debugOverlay === true;
+
+export const DebugFrameOverlay: React.FC<{
+  plan: TemplateRenderPlan;
+  style?: React.CSSProperties;
+  label?: string;
+}> = ({plan, style, label}) => {
+  if (!shouldShowDebugOverlay(plan)) {
+    return null;
+  }
+
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        border: '2px solid rgba(80, 210, 255, 0.82)',
+        background: 'rgba(80, 210, 255, 0.08)',
+        pointerEvents: 'none',
+        ...style,
+      }}
+    >
+      {label && (
+        <div
+          style={{
+            position: 'absolute',
+            left: 8,
+            top: 8,
+            padding: '4px 8px',
+            borderRadius: 6,
+            background: 'rgba(8, 18, 32, 0.72)',
+            color: '#f7fbff',
+            fontSize: 14,
+            fontWeight: 700,
+          }}
+        >
+          {label}
+        </div>
+      )}
+    </div>
+  );
+};
+
 export const TitleBlock: React.FC<{
   plan: TemplateRenderPlan;
   position?: 'top-left' | 'bottom-left' | 'bottom-center';

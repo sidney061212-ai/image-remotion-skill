@@ -10,9 +10,9 @@
   "assets": [
     {
       "id": "unknown-demo",
-      "path": "examples/demo-photo-5.svg",
-      "width": 1200,
-      "height": 1200,
+      "path": "examples/demo-landscape.svg",
+      "width": 1920,
+      "height": 1080,
       "label": "Unknown demo"
     }
   ],

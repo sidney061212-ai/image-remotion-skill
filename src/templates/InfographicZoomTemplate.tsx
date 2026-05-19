@@ -1,12 +1,12 @@
 import React from 'react';
-import {AbsoluteFill, Img, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
 import type {TemplateProps} from './common';
 import {
-  FloatingImageCard,
+  DebugFrameOverlay,
+  NaturalImageLayer,
   SoftGradientOverlay,
   TemplateShell,
   TitleBlock,
-  VignetteOverlay,
   clamp,
   getAssetSrc,
   getIntensityConfig,
@@ -44,66 +44,56 @@ export const InfographicZoomTemplate: React.FC<TemplateProps> = ({plan}) => {
   const next = centers[Math.min(2, segmentIndex + 1)];
   const focusX = progress < 0.15 || progress > 0.75 ? 0 : lerp(current.x, next.x, local);
   const focusY = progress < 0.15 || progress > 0.75 ? 0 : lerp(current.y, next.y, local);
-  const focusScale = progress < 0.15 ? interpolate(progress, [0, 0.15], [0.96, 1.04]) : progress > 0.75 ? interpolate(progress, [0.75, 1], [1.05, 0.96]) : 1.22 + config.zoomAmount;
-  const translateX = focusX * width * config.motionAmount;
-  const translateY = focusY * height * config.motionAmount;
-  const glowOpacity = interpolate(progress, [0.08, 0.18, 0.72, 0.84], [0, 0.72, 0.72, 0], {
+  const focusScale =
+    progress < 0.15
+      ? interpolate(progress, [0, 0.15], [0.985, 1.015])
+      : progress > 0.75
+        ? interpolate(progress, [0.75, 1], [1.12, 0.99])
+        : 1.12 + config.zoomAmount * 0.35;
+  const translateX = focusX * width * 0.68 * config.motionAmount;
+  const translateY = focusY * height * 0.68 * config.motionAmount;
+  const spotlightOpacity = interpolate(progress, [0.12, 0.22, 0.72, 0.84], [0, 0.16, 0.16, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const titleOpacity = interpolate(progress, [0.74, 0.86, 1], [0, 1, 1], {
+  const titleOpacity = interpolate(progress, [0.8, 0.9, 1], [0, 0.82, 0.82], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
+  const debugFrameStyle: React.CSSProperties = {
+    top: `${isVertical ? [16, 45, 72][segmentIndex] : 18}%`,
+    left: `${isVertical ? 7 : [7, 35, 63][segmentIndex]}%`,
+    width: isVertical ? '86%' : '30%',
+    height: isVertical ? '22%' : '68%',
+  };
 
   return (
-    <TemplateShell plan={plan} asset={asset} accentColor="#74e4ff" showDefaultText={false}>
-      <SoftGradientOverlay variant="cool" opacity={0.8} />
-      <AbsoluteFill style={{alignItems: 'center', justifyContent: 'center', padding: '118px 70px'}}>
-        <FloatingImageCard
-          src={getAssetSrc(asset.path)}
-          width="100%"
-          height="100%"
-          fit="contain"
-          borderRadius={34}
-          shadowStrength={config.shadowStrength}
-          imgStyle={{
-            transform: `translate(${translateX}px, ${translateY}px) scale(${focusScale})`,
-            transformOrigin: 'center',
-          }}
-          style={{
-            background: 'rgba(255,255,255,0.9)',
-          }}
-        >
-          <div
-            style={{
-              position: 'absolute',
-              inset: 20,
-              borderRadius: 24,
-              border: `3px solid rgba(116, 228, 255, ${glowOpacity})`,
-              boxShadow: `0 0 34px rgba(116, 228, 255, ${glowOpacity * 0.55})`,
-              pointerEvents: 'none',
-            }}
+    <TemplateShell plan={{...plan, text: {...plan.text, captions: []}}} accentColor="#74e4ff" showDefaultText={false}>
+      <AbsoluteFill style={{background: 'linear-gradient(180deg, #f7fbff 0%, #eef6ff 100%)'}} />
+      <SoftGradientOverlay variant="cool" opacity={0.22} />
+      <AbsoluteFill style={{alignItems: 'center', justifyContent: 'center', padding: '34px 26px'}}>
+        <div style={{position: 'relative', width: '100%', height: '100%'}}>
+          <NaturalImageLayer
+            src={getAssetSrc(asset.path)}
+            fit="contain"
+            x={translateX}
+            y={translateY}
+            scale={focusScale}
+            transformOrigin="center"
           />
-          <div
-            style={{
-              position: 'absolute',
-              top: `${isVertical ? [16, 45, 72][segmentIndex] : 18}%`,
-              left: `${isVertical ? 7 : [7, 35, 63][segmentIndex]}%`,
-              width: isVertical ? '86%' : '30%',
-              height: isVertical ? '22%' : '68%',
-              borderRadius: 22,
-              border: `2px solid rgba(255,255,255,${glowOpacity * 0.78})`,
-              background: `rgba(116, 228, 255, ${glowOpacity * 0.08})`,
-              boxShadow: `inset 0 0 0 1px rgba(255,255,255,${glowOpacity * 0.22})`,
-            }}
-          />
-        </FloatingImageCard>
+          <DebugFrameOverlay plan={plan} style={debugFrameStyle} label={`segment ${segmentIndex + 1}`} />
+        </div>
       </AbsoluteFill>
+      <AbsoluteFill
+        style={{
+          pointerEvents: 'none',
+          opacity: spotlightOpacity,
+          background: `radial-gradient(circle at ${50 + focusX * 34}% ${50 + focusY * 34}%, transparent 0%, transparent 36%, rgba(12, 26, 44, 0.2) 100%)`,
+        }}
+      />
       <div style={{opacity: titleOpacity}}>
-        <TitleBlock plan={plan} position="bottom-left" accentColor="#74e4ff" color="#f7fbff" delay={0} maxWidth="72%" compact />
+        <TitleBlock plan={plan} position="bottom-left" accentColor="#74e4ff" color="#214264" delay={0} maxWidth="50%" compact />
       </div>
-      <VignetteOverlay strength={0.34} />
     </TemplateShell>
   );
 };
