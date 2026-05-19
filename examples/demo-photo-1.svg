@@ -9,6 +9,9 @@
   <circle cx="948" cy="220" r="118" fill="#fff6c7" opacity="0.9"/>
   <path d="M0 780 C190 620 344 604 536 742 C720 874 910 856 1200 674 V1200 H0 Z" fill="#073b4c"/>
   <path d="M0 890 C196 754 396 760 602 888 C792 1006 994 994 1200 840 V1200 H0 Z" fill="#118ab2"/>
+  <path d="M0 976 C206 900 390 910 590 980 C790 1046 996 1038 1200 948 V1200 H0 Z" fill="#0b5f78" opacity="0.75"/>
+  <path d="M260 640 C330 604 402 608 470 648" fill="none" stroke="#fff8df" stroke-width="10" stroke-linecap="round" opacity="0.55"/>
+  <path d="M742 602 C816 560 898 566 964 612" fill="none" stroke="#fff8df" stroke-width="8" stroke-linecap="round" opacity="0.42"/>
   <text x="72" y="104" font-family="Helvetica, Arial, sans-serif" font-size="48" font-weight="900" fill="#ffffff">Photo 01</text>
   <text x="72" y="160" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#fff8df">Sunset coast</text>
 </svg>

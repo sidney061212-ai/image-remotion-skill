@@ -23,6 +23,8 @@
   <text x="1109" y="270" font-family="Helvetica, Arial, sans-serif" font-size="36" font-weight="800" fill="#ffffff" text-anchor="middle">$49 launch</text>
 
   <rect x="458" y="438" width="684" height="660" rx="68" fill="url(#device)" filter="url(#shadow)"/>
+  <circle cx="1010" cy="514" r="74" fill="#ffd166" opacity="0.88"/>
+  <text x="1010" y="526" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="900" fill="#15304c" text-anchor="middle">NEW</text>
   <rect x="512" y="510" width="576" height="462" rx="34" fill="#e6f7ff"/>
   <rect x="566" y="564" width="466" height="76" rx="24" fill="#6db8ff"/>
   <rect x="566" y="692" width="186" height="186" rx="28" fill="#1de7c2"/>
@@ -31,10 +33,17 @@
   <rect x="790" y="822" width="226" height="34" rx="17" fill="#9bb4cc"/>
   <circle cx="800" cy="1034" r="36" fill="#ffffff" opacity="0.9"/>
   <path d="M616 1198 C712 1142 890 1142 986 1198" fill="none" stroke="#7d8da3" stroke-width="16" stroke-linecap="round"/>
+  <path d="M488 438 L1142 438 L994 1098 L458 1098 Z" fill="#ffffff" opacity="0.08"/>
+  <rect x="578" y="1032" width="444" height="54" rx="27" fill="#ffffff" opacity="0.14"/>
 
   <rect x="236" y="1198" width="420" height="118" rx="38" fill="#12304a"/>
   <text x="446" y="1270" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="800" fill="#ffffff" text-anchor="middle">Start Render</text>
   <rect x="720" y="1198" width="434" height="118" rx="38" fill="#f3fbff" stroke="#b3d8ee" stroke-width="4"/>
   <text x="937" y="1270" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="800" fill="#12304a" text-anchor="middle">Template Preview</text>
+  <g transform="translate(1018 350)">
+    <rect x="0" y="0" width="210" height="72" rx="36" fill="#ffffff" opacity="0.92"/>
+    <circle cx="42" cy="36" r="17" fill="#1de7c2"/>
+    <text x="76" y="47" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="900" fill="#12304a">4.9 rating</text>
+  </g>
   <text x="236" y="1404" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#5c7186">ProductHeroTemplate demo asset</text>
 </svg>

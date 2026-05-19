@@ -8,9 +8,13 @@
   <rect width="1200" height="1200" fill="url(#bg)"/>
   <circle cx="304" cy="328" r="170" fill="#ffbd00" opacity="0.9"/>
   <circle cx="860" cy="650" r="250" fill="#7b2cbf" opacity="0.62"/>
+  <circle cx="860" cy="650" r="148" fill="#ffffff" opacity="0.12"/>
+  <path d="M150 560 L1050 318" stroke="#ffffff" stroke-width="18" stroke-linecap="round" opacity="0.16"/>
+  <path d="M186 618 L1088 376" stroke="#ffbd00" stroke-width="8" stroke-linecap="round" opacity="0.36"/>
   <rect x="212" y="720" width="776" height="212" rx="52" fill="#ffffff" opacity="0.88"/>
   <rect x="278" y="780" width="300" height="36" rx="18" fill="#240046"/>
   <rect x="278" y="846" width="470" height="32" rx="16" fill="#5a189a" opacity="0.75"/>
+  <rect x="782" y="780" width="116" height="98" rx="28" fill="#ff9e00" opacity="0.9"/>
   <text x="92" y="110" font-family="Helvetica, Arial, sans-serif" font-size="52" font-weight="900" fill="#ffffff">Photo 04</text>
   <text x="92" y="172" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#ffe8b5">Bold event color</text>
 </svg>

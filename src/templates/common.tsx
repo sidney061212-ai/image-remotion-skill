@@ -33,6 +33,76 @@ export const getIntensityMultiplier = (intensity: TemplateIntensity | undefined)
   }
 };
 
+export interface IntensityConfig {
+  zoomAmount: number;
+  motionAmount: number;
+  shadowStrength: number;
+  animationSpeed: number;
+  blurAmount: number;
+}
+
+export const getIntensityConfig = (intensity: TemplateIntensity | undefined): IntensityConfig => {
+  switch (intensity) {
+    case 'low':
+      return {
+        zoomAmount: 0.035,
+        motionAmount: 0.72,
+        shadowStrength: 0.16,
+        animationSpeed: 0.9,
+        blurAmount: 24,
+      };
+    case 'high':
+      return {
+        zoomAmount: 0.085,
+        motionAmount: 1.22,
+        shadowStrength: 0.3,
+        animationSpeed: 1.14,
+        blurAmount: 42,
+      };
+    case 'medium':
+    default:
+      return {
+        zoomAmount: 0.055,
+        motionAmount: 1,
+        shadowStrength: 0.22,
+        animationSpeed: 1,
+        blurAmount: 34,
+      };
+  }
+};
+
+export const safeSpring = ({
+  frame,
+  fps,
+  delay = 0,
+  durationInFrames,
+  damping = 22,
+  stiffness = 95,
+  mass = 0.9,
+}: {
+  frame: number;
+  fps: number;
+  delay?: number;
+  durationInFrames?: number;
+  damping?: number;
+  stiffness?: number;
+  mass?: number;
+}): number =>
+  clamp(
+    spring({
+      frame: Math.max(0, frame - delay),
+      fps,
+      durationInFrames,
+      config: {
+        damping,
+        stiffness,
+        mass,
+      },
+    }),
+    0,
+    1,
+  );
+
 export const getFitMode = (plan: TemplateRenderPlan, fallback: TemplateFitMode = 'contain'): TemplateFitMode =>
   plan.options?.fit ?? fallback;
 
@@ -152,7 +222,8 @@ export const TemplateShell: React.FC<{
   asset?: TemplateAsset;
   children: React.ReactNode;
   accentColor?: string;
-}> = ({plan, asset, children, accentColor = '#79b7ff'}) => {
+  showDefaultText?: boolean;
+}> = ({plan, asset, children, accentColor = '#79b7ff', showDefaultText = true}) => {
   const captions = getCaptionLines(plan);
 
   return (
@@ -166,7 +237,7 @@ export const TemplateShell: React.FC<{
         }}
       />
       {children}
-      {(plan.text?.title || plan.text?.subtitle) && (
+      {showDefaultText && (plan.text?.title || plan.text?.subtitle) && (
         <div
           style={{
             position: 'absolute',
@@ -253,6 +324,200 @@ export const TemplateShell: React.FC<{
   );
 };
 
+export const BackgroundBlurLayer: React.FC<{
+  asset: TemplateAsset;
+  blurAmount?: number;
+  scale?: number;
+  brightness?: number;
+  opacity?: number;
+  x?: number;
+  y?: number;
+  vignette?: boolean;
+}> = ({asset, blurAmount = 34, scale = 1.16, brightness = 0.72, opacity = 1, x = 0, y = 0, vignette = true}) => (
+  <AbsoluteFill style={{overflow: 'hidden', backgroundColor: '#111827'}}>
+    <Img
+      src={getAssetSrc(asset.path)}
+      style={{
+        position: 'absolute',
+        inset: -120,
+        width: 'calc(100% + 240px)',
+        height: 'calc(100% + 240px)',
+        objectFit: 'cover',
+        opacity,
+        filter: `blur(${blurAmount}px) brightness(${brightness}) saturate(1.18)`,
+        transform: `translate(${x}px, ${y}px) scale(${scale})`,
+      }}
+    />
+    {vignette && <VignetteOverlay strength={0.52} />}
+  </AbsoluteFill>
+);
+
+export const VignetteOverlay: React.FC<{strength?: number; color?: string}> = ({strength = 0.48, color = '0, 0, 0'}) => (
+  <AbsoluteFill
+    style={{
+      pointerEvents: 'none',
+      background: `radial-gradient(circle at 50% 44%, rgba(${color}, 0) 42%, rgba(${color}, ${strength * 0.52}) 78%, rgba(${color}, ${strength}) 100%)`,
+    }}
+  />
+);
+
+export const SoftGradientOverlay: React.FC<{
+  variant?: 'warm' | 'cool' | 'mint' | 'dark';
+  opacity?: number;
+}> = ({variant = 'cool', opacity = 1}) => {
+  const gradients = {
+    warm:
+      'linear-gradient(135deg, rgba(255, 207, 133, 0.24), transparent 42%), linear-gradient(20deg, transparent 38%, rgba(255, 122, 89, 0.16))',
+    cool:
+      'linear-gradient(135deg, rgba(93, 172, 255, 0.22), transparent 42%), linear-gradient(25deg, transparent 34%, rgba(135, 120, 255, 0.16))',
+    mint:
+      'linear-gradient(135deg, rgba(42, 226, 190, 0.2), transparent 44%), linear-gradient(20deg, transparent 36%, rgba(255, 224, 131, 0.16))',
+    dark:
+      'linear-gradient(180deg, rgba(2, 8, 23, 0.18), transparent 38%, rgba(2, 8, 23, 0.36))',
+  };
+
+  return (
+    <AbsoluteFill
+      style={{
+        pointerEvents: 'none',
+        opacity,
+        background: gradients[variant],
+      }}
+    />
+  );
+};
+
+export const FloatingImageCard: React.FC<{
+  src: string;
+  width: string | number;
+  height: string | number;
+  fit?: TemplateFitMode;
+  x?: number;
+  y?: number;
+  rotate?: number;
+  scale?: number;
+  borderRadius?: number;
+  shadowStrength?: number;
+  style?: React.CSSProperties;
+  imgStyle?: React.CSSProperties;
+  children?: React.ReactNode;
+}> = ({
+  src,
+  width,
+  height,
+  fit = 'cover',
+  x = 0,
+  y = 0,
+  rotate = 0,
+  scale = 1,
+  borderRadius = 30,
+  shadowStrength = 0.22,
+  style,
+  imgStyle,
+  children,
+}) => (
+  <div
+    style={{
+      width,
+      height,
+      position: 'relative',
+      borderRadius,
+      overflow: 'hidden',
+      border: '1px solid rgba(255,255,255,0.54)',
+      boxShadow: `0 30px 90px rgba(22, 44, 76, ${shadowStrength})`,
+      background: 'rgba(255,255,255,0.72)',
+      transform: `translate(${x}px, ${y}px) rotate(${rotate}deg) scale(${scale})`,
+      ...style,
+    }}
+  >
+    <Img
+      src={src}
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: fit,
+        display: 'block',
+        ...imgStyle,
+      }}
+    />
+    {children}
+  </div>
+);
+
+export const TitleBlock: React.FC<{
+  plan: TemplateRenderPlan;
+  position?: 'top-left' | 'bottom-left' | 'bottom-center';
+  color?: string;
+  delay?: number;
+  maxWidth?: number | string;
+  accentColor?: string;
+  compact?: boolean;
+}> = ({plan, position = 'bottom-left', color = '#f8fbff', delay = 18, maxWidth = '62%', accentColor = '#79b7ff', compact = false}) => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  if (!plan.text?.title && !plan.text?.subtitle) {
+    return null;
+  }
+
+  const enter = safeSpring({frame, fps, delay, damping: 24, stiffness: 82});
+  const opacity = interpolate(enter, [0, 1], [0, 1]);
+  const translateY = interpolate(enter, [0, 1], [26, 0]);
+  const base: React.CSSProperties = {
+    position: 'absolute',
+    maxWidth,
+    opacity,
+    transform: `translateY(${translateY}px)`,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: compact ? 8 : 12,
+    color,
+    textShadow: '0 10px 34px rgba(0,0,0,0.22)',
+    pointerEvents: 'none',
+  };
+  const positionStyle: Record<NonNullable<Parameters<typeof TitleBlock>[0]['position']>, React.CSSProperties> = {
+    'top-left': {top: 56, left: 62},
+    'bottom-left': {left: 62, bottom: 58},
+    'bottom-center': {left: 72, right: 72, bottom: 58, maxWidth: 'none', alignItems: 'center', textAlign: 'center'},
+  };
+
+  return (
+    <div style={{...base, ...positionStyle[position]}}>
+      {plan.text?.title && (
+        <div
+          style={{
+            fontSize: compact ? 34 : 46,
+            lineHeight: 1.04,
+            fontWeight: 850,
+          }}
+        >
+          {plan.text.title}
+        </div>
+      )}
+      {plan.text?.subtitle && (
+        <div
+          style={{
+            fontSize: compact ? 20 : 24,
+            lineHeight: 1.32,
+            color,
+            opacity: 0.82,
+          }}
+        >
+          {plan.text.subtitle}
+        </div>
+      )}
+      <div
+        style={{
+          width: compact ? 72 : 96,
+          height: 5,
+          borderRadius: 999,
+          background: accentColor,
+          boxShadow: `0 0 26px ${accentColor}66`,
+        }}
+      />
+    </div>
+  );
+};
+
 export const FloatingCard: React.FC<{
   children: React.ReactNode;
   width: string | number;
@@ -263,6 +528,7 @@ export const FloatingCard: React.FC<{
     style={{
       width,
       height,
+      position: 'relative',
       borderRadius: 34,
       overflow: 'hidden',
       border: '1px solid rgba(255,255,255,0.52)',

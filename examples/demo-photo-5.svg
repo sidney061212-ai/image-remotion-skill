@@ -13,8 +13,11 @@
   <rect x="240" y="238" width="720" height="370" rx="44" fill="#70d6ff"/>
   <circle cx="800" cy="344" r="82" fill="#ffd670"/>
   <path d="M240 608 L430 422 L570 544 L720 380 L960 608 Z" fill="#2a9d8f"/>
+  <path d="M240 608 L478 488 L618 574 L778 442 L960 608 Z" fill="#264653" opacity="0.28"/>
   <rect x="240" y="698" width="450" height="44" rx="22" fill="#264653"/>
   <rect x="240" y="778" width="604" height="34" rx="17" fill="#8ecae6"/>
   <rect x="240" y="844" width="520" height="34" rx="17" fill="#bde0fe"/>
+  <rect x="760" y="692" width="132" height="132" rx="32" fill="#e9c46a"/>
+  <circle cx="826" cy="758" r="32" fill="#ffffff" opacity="0.48"/>
   <text x="240" y="974" font-family="Helvetica, Arial, sans-serif" font-size="52" font-weight="900" fill="#264653">Photo 05</text>
 </svg>

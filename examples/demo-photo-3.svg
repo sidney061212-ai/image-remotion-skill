@@ -9,7 +9,10 @@
   <rect x="120" y="160" width="960" height="780" rx="64" fill="#ffffff" opacity="0.82"/>
   <path d="M180 812 L414 512 L578 690 L730 448 L1020 812 Z" fill="#3d5a80"/>
   <path d="M180 812 L390 620 L520 734 L658 584 L1020 812 Z" fill="#ee6c4d" opacity="0.9"/>
+  <path d="M180 812 L414 512 L518 624 L730 448 L1020 812 Z" fill="#ffffff" opacity="0.22"/>
   <circle cx="856" cy="320" r="104" fill="#ffd166"/>
+  <path d="M230 278 C314 238 390 244 462 290" fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round" opacity="0.7"/>
+  <rect x="180" y="870" width="840" height="34" rx="17" fill="#98c1d9" opacity="0.6"/>
   <text x="96" y="1042" font-family="Helvetica, Arial, sans-serif" font-size="52" font-weight="900" fill="#293241">Photo 03</text>
   <text x="96" y="1104" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#3d5a80">Clean mountain frame</text>
 </svg>

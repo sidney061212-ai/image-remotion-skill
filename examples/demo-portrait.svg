@@ -15,15 +15,20 @@
   </defs>
   <rect width="1080" height="1600" fill="url(#bg)"/>
   <rect width="1080" height="1600" fill="url(#halo)"/>
+  <circle cx="244" cy="262" r="88" fill="#ffffff" opacity="0.08"/>
+  <circle cx="842" cy="344" r="126" fill="#d2a4ff" opacity="0.14"/>
   <circle cx="540" cy="520" r="315" fill="#ffffff" opacity="0.08"/>
   <circle cx="540" cy="416" r="188" fill="#f0c7a5" filter="url(#shadow)"/>
   <path d="M360 412 C360 250 474 166 582 178 C724 194 812 316 754 496 C716 440 642 424 586 352 C532 440 438 456 360 412 Z" fill="#2d2744"/>
   <ellipse cx="472" cy="448" rx="24" ry="32" fill="#2c2440"/>
   <ellipse cx="612" cy="448" rx="24" ry="32" fill="#2c2440"/>
   <path d="M486 554 C522 586 572 586 610 554" fill="none" stroke="#8f5542" stroke-width="16" stroke-linecap="round"/>
+  <path d="M450 384 C486 358 522 358 558 384" fill="none" stroke="#46375c" stroke-width="12" stroke-linecap="round"/>
+  <path d="M590 384 C626 358 662 358 698 384" fill="none" stroke="#46375c" stroke-width="12" stroke-linecap="round"/>
   <path d="M318 996 C352 766 442 664 540 664 C638 664 730 766 764 996 L856 1320 L224 1320 Z" fill="#f8fbff" filter="url(#shadow)"/>
   <path d="M362 1002 C390 790 462 720 540 720 C618 720 692 790 720 1002 L772 1248 L308 1248 Z" fill="#7aa7ff"/>
   <rect x="140" y="1288" width="800" height="130" rx="38" fill="#ffffff" opacity="0.86"/>
+  <rect x="292" y="1188" width="496" height="64" rx="32" fill="#ffffff" opacity="0.18"/>
   <text x="540" y="1350" font-family="Helvetica, Arial, sans-serif" font-size="42" font-weight="800" fill="#27345c" text-anchor="middle">Portrait Focus Demo</text>
   <text x="540" y="1398" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#637093" text-anchor="middle">Centered face, soft halo, gentle push-in target</text>
 </svg>

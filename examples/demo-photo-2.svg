@@ -12,6 +12,10 @@
   <rect x="536" y="370" width="374" height="48" rx="24" fill="#a9d6e5"/>
   <rect x="536" y="468" width="430" height="48" rx="24" fill="#80ced7"/>
   <circle cx="336" cy="520" r="112" fill="#ffbf69"/>
+  <rect x="536" y="574" width="142" height="142" rx="34" fill="#ffbf69"/>
+  <rect x="714" y="574" width="142" height="142" rx="34" fill="#2ec4b6"/>
+  <rect x="892" y="574" width="74" height="142" rx="34" fill="#edf6f9"/>
+  <path d="M212 922 C338 872 522 872 654 922" fill="none" stroke="#80ced7" stroke-width="18" stroke-linecap="round" opacity="0.52"/>
   <text x="82" y="1036" font-family="Helvetica, Arial, sans-serif" font-size="52" font-weight="900" fill="#ffffff">Photo 02</text>
   <text x="82" y="1098" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#b8d8ee">Studio board</text>
 </svg>
