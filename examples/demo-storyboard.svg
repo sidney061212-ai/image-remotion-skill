@@ -1,41 +1,47 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#101926"/>
-      <stop offset="100%" stop-color="#1a2f45"/>
+      <stop offset="0%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#223b55"/>
     </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#050912" flood-opacity="0.35"/>
+    </filter>
   </defs>
   <rect width="1920" height="1080" fill="url(#bg)"/>
-  <rect x="72" y="54" width="1776" height="96" rx="24" fill="#10283a" stroke="#7fd6ff" stroke-width="4"/>
-  <text x="120" y="112" font-family="Helvetica, Arial, sans-serif" font-size="42" font-weight="700" fill="#eef7ff">Storyboard Demo Sheet</text>
-  <text x="120" y="142" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#bcd8ef">Four panels arranged for left-to-right, top-to-bottom reading order</text>
+  <text x="90" y="86" font-family="Helvetica, Arial, sans-serif" font-size="48" font-weight="900" fill="#f7fbff">2x2 Storyboard Demo</text>
+  <text x="90" y="124" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#bfd5ea">Default panel path: top-left, top-right, bottom-left, bottom-right</text>
 
-  <rect x="90" y="200" width="780" height="320" rx="28" fill="#243e57" stroke="#ffd166" stroke-width="6"/>
-  <text x="132" y="252" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="#fff3cd">Panel 1 - Opening Wide Shot</text>
-  <rect x="132" y="286" width="696" height="176" rx="18" fill="#355a78"/>
-  <circle cx="246" cy="374" r="44" fill="#ffd166"/>
-  <rect x="332" y="326" width="386" height="28" rx="14" fill="#9fd3ff"/>
-  <rect x="332" y="376" width="300" height="24" rx="12" fill="#8bb4d6"/>
-
-  <rect x="1050" y="200" width="780" height="320" rx="28" fill="#28465f" stroke="#80ed99" stroke-width="6"/>
-  <text x="1092" y="252" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="#eafff0">Panel 2 - Reaction Close-up</text>
-  <rect x="1092" y="286" width="696" height="176" rx="18" fill="#386981"/>
-  <circle cx="1226" cy="374" r="56" fill="#80ed99"/>
-  <rect x="1320" y="324" width="360" height="30" rx="15" fill="#d6ffe0"/>
-  <rect x="1320" y="376" width="270" height="24" rx="12" fill="#b0e2bf"/>
-
-  <rect x="90" y="590" width="780" height="320" rx="28" fill="#2a3d5d" stroke="#ff8fab" stroke-width="6"/>
-  <text x="132" y="642" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="#ffe5ee">Panel 3 - Action Beat</text>
-  <rect x="132" y="676" width="696" height="176" rx="18" fill="#42577a"/>
-  <polygon points="230,826 314,712 386,772 468,696 568,826" fill="#ff8fab"/>
-  <rect x="610" y="728" width="172" height="34" rx="17" fill="#ffd6e2"/>
-  <rect x="610" y="778" width="126" height="24" rx="12" fill="#f3b5c8"/>
-
-  <rect x="1050" y="590" width="780" height="320" rx="28" fill="#3a3159" stroke="#cdb4ff" stroke-width="6"/>
-  <text x="1092" y="642" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="#f6eeff">Panel 4 - Ending Hold</text>
-  <rect x="1092" y="676" width="696" height="176" rx="18" fill="#55457c"/>
-  <rect x="1186" y="720" width="508" height="88" rx="20" fill="#cdb4ff"/>
-  <text x="1440" y="776" font-family="Helvetica, Arial, sans-serif" font-size="42" font-weight="700" fill="#3d2a65" text-anchor="middle">Final Message</text>
-
-  <text x="960" y="1018" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#c6d8ea" text-anchor="middle">This asset matches the storyboard example request regions.</text>
+  <g filter="url(#shadow)">
+    <rect x="86" y="176" width="820" height="360" rx="28" fill="#f8fbff"/>
+    <rect x="120" y="218" width="752" height="250" rx="22" fill="#a9d6ff"/>
+    <circle cx="246" cy="306" r="62" fill="#ffe083"/>
+    <path d="M120 468 L330 332 L478 430 L604 350 L872 468 Z" fill="#244c69"/>
+    <text x="128" y="514" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="800" fill="#17233a">1. Establishing shot</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="1014" y="176" width="820" height="360" rx="28" fill="#f8fbff"/>
+    <rect x="1048" y="218" width="752" height="250" rx="22" fill="#f6d7c8"/>
+    <circle cx="1260" cy="348" r="90" fill="#f2b08d"/>
+    <path d="M1200 324 C1204 232 1288 198 1348 246 C1400 288 1392 390 1322 432 C1280 388 1240 382 1200 324 Z" transform="translate(0 0)" fill="#33233b"/>
+    <rect x="1440" y="286" width="246" height="36" rx="18" fill="#8a4e6a"/>
+    <rect x="1440" y="350" width="180" height="28" rx="14" fill="#b7738d"/>
+    <text x="1056" y="514" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="800" fill="#17233a">2. Reaction close-up</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="86" y="604" width="820" height="360" rx="28" fill="#f8fbff"/>
+    <rect x="120" y="646" width="752" height="250" rx="22" fill="#c9f0d2"/>
+    <path d="M230 846 L330 704 L420 798 L510 676 L650 846 Z" fill="#28845f"/>
+    <path d="M666 716 L806 742 L694 820 Z" fill="#ff6b6b"/>
+    <line x1="612" y1="734" x2="744" y2="800" stroke="#143b3b" stroke-width="14" stroke-linecap="round"/>
+    <text x="128" y="942" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="800" fill="#17233a">3. Action beat</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="1014" y="604" width="820" height="360" rx="28" fill="#f8fbff"/>
+    <rect x="1048" y="646" width="752" height="250" rx="22" fill="#d9ccff"/>
+    <rect x="1184" y="718" width="480" height="108" rx="32" fill="#563b8b"/>
+    <text x="1424" y="786" font-family="Helvetica, Arial, sans-serif" font-size="46" font-weight="900" fill="#ffffff" text-anchor="middle">THE END</text>
+    <path d="M1134 878 C1268 826 1540 828 1698 878" fill="none" stroke="#8f7cff" stroke-width="18" stroke-linecap="round"/>
+    <text x="1056" y="942" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="800" fill="#17233a">4. Ending hold</text>
+  </g>
 </svg>

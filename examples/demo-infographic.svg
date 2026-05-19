@@ -1,33 +1,76 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0b1022"/>
-      <stop offset="100%" stop-color="#0f2742"/>
+      <stop offset="0%" stop-color="#07111f"/>
+      <stop offset="52%" stop-color="#12365e"/>
+      <stop offset="100%" stop-color="#edf7ff"/>
     </linearGradient>
+    <linearGradient id="cardA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1de7c2"/>
+      <stop offset="100%" stop-color="#6db8ff"/>
+    </linearGradient>
+    <linearGradient id="cardB" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffe083"/>
+      <stop offset="100%" stop-color="#ff8a7a"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#05101e" flood-opacity="0.25"/>
+    </filter>
   </defs>
   <rect width="1080" height="1920" fill="url(#bg)"/>
-  <rect x="60" y="80" width="960" height="240" rx="28" fill="#102f52" stroke="#4dd0e1" stroke-width="4"/>
-  <text x="540" y="178" font-family="Helvetica, Arial, sans-serif" font-size="58" font-weight="700" fill="#f2f7ff" text-anchor="middle">AI Motion Template Skill</text>
-  <text x="540" y="248" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#d4e9ff" text-anchor="middle">Infographic demo for template mode</text>
+  <circle cx="920" cy="180" r="180" fill="#70e7ff" opacity="0.14"/>
+  <circle cx="130" cy="1360" r="220" fill="#ffdb7a" opacity="0.14"/>
 
-  <rect x="70" y="420" width="450" height="520" rx="24" fill="#13385f" stroke="#52e0b8" stroke-width="4"/>
-  <text x="110" y="500" font-family="Helvetica, Arial, sans-serif" font-size="38" font-weight="700" fill="#ecfff8">Module A</text>
-  <text x="110" y="566" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#d7fff1">Template selection</text>
-  <text x="110" y="620" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#d7fff1">Safe defaults</text>
-  <text x="110" y="674" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#d7fff1">Deterministic output</text>
-  <text x="110" y="770" font-family="Helvetica, Arial, sans-serif" font-size="92" font-weight="700" fill="#86ffd8">72%</text>
+  <rect x="62" y="72" width="956" height="260" rx="34" fill="#0e2b4c" stroke="#78d8ff" stroke-width="4" filter="url(#shadow)"/>
+  <text x="108" y="160" font-family="Helvetica, Arial, sans-serif" font-size="38" font-weight="700" fill="#85e8ff">TEMPLATE SKILL REPORT</text>
+  <text x="108" y="238" font-family="Helvetica, Arial, sans-serif" font-size="70" font-weight="800" fill="#f7fbff">Image to Video</text>
+  <text x="108" y="290" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#bed8f5">Coarse category in, Remotion template out</text>
 
-  <rect x="560" y="420" width="450" height="520" rx="24" fill="#173f68" stroke="#f7d45e" stroke-width="4"/>
-  <text x="600" y="500" font-family="Helvetica, Arial, sans-serif" font-size="38" font-weight="700" fill="#fff8dc">Module B</text>
-  <text x="600" y="566" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#fff3c9">Simple AI contract</text>
-  <text x="600" y="620" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#fff3c9">Render to MP4</text>
-  <text x="600" y="674" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#fff3c9">Template-first</text>
-  <text x="600" y="770" font-family="Helvetica, Arial, sans-serif" font-size="92" font-weight="700" fill="#ffe37d">2.4x</text>
+  <rect x="62" y="402" width="296" height="250" rx="30" fill="#f6fbff" filter="url(#shadow)"/>
+  <rect x="94" y="434" width="82" height="82" rx="22" fill="url(#cardA)"/>
+  <text x="94" y="568" font-family="Helvetica, Arial, sans-serif" font-size="64" font-weight="800" fill="#102a43">12</text>
+  <text x="94" y="610" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#58708a">Template families</text>
 
-  <rect x="60" y="1060" width="960" height="700" rx="28" fill="#0f3358" stroke="#8cb8ff" stroke-width="4"/>
-  <text x="540" y="1160" font-family="Helvetica, Arial, sans-serif" font-size="44" font-weight="700" fill="#eaf2ff" text-anchor="middle">Conclusion</text>
-  <text x="140" y="1260" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#d7e6ff">• Template mode does not require regions</text>
-  <text x="140" y="1338" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#d7e6ff">• MotionPlan remains available as an advanced mode</text>
-  <text x="140" y="1416" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#d7e6ff">• Upstream AI only needs rough image categorization</text>
-  <text x="140" y="1550" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#9fc4ff">This example is stored in examples/ for AI-facing request samples.</text>
+  <rect x="392" y="402" width="296" height="250" rx="30" fill="#f6fbff" filter="url(#shadow)"/>
+  <rect x="424" y="434" width="82" height="82" rx="22" fill="url(#cardB)"/>
+  <text x="424" y="568" font-family="Helvetica, Arial, sans-serif" font-size="64" font-weight="800" fill="#102a43">3</text>
+  <text x="424" y="610" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#58708a">Output ratios</text>
+
+  <rect x="722" y="402" width="296" height="250" rx="30" fill="#f6fbff" filter="url(#shadow)"/>
+  <rect x="754" y="434" width="82" height="82" rx="22" fill="#8f7cff"/>
+  <text x="754" y="568" font-family="Helvetica, Arial, sans-serif" font-size="64" font-weight="800" fill="#102a43">60</text>
+  <text x="754" y="610" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#58708a">Default FPS</text>
+
+  <rect x="62" y="728" width="956" height="420" rx="34" fill="#f9fcff" filter="url(#shadow)"/>
+  <text x="108" y="804" font-family="Helvetica, Arial, sans-serif" font-size="38" font-weight="800" fill="#122c44">Category routing</text>
+  <line x1="130" y1="1040" x2="920" y2="1040" stroke="#d6e7f6" stroke-width="5"/>
+  <rect x="158" y="900" width="72" height="140" rx="18" fill="#56ccf2"/>
+  <rect x="292" y="850" width="72" height="190" rx="18" fill="#1de7c2"/>
+  <rect x="426" y="930" width="72" height="110" rx="18" fill="#ffe083"/>
+  <rect x="560" y="810" width="72" height="230" rx="18" fill="#ff8a7a"/>
+  <rect x="694" y="880" width="72" height="160" rx="18" fill="#8f7cff"/>
+  <rect x="828" y="830" width="72" height="210" rx="18" fill="#71df9f"/>
+  <polyline points="194,900 328,850 462,930 596,810 730,880 864,830" fill="none" stroke="#173e68" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="194" cy="900" r="13" fill="#173e68"/>
+  <circle cx="328" cy="850" r="13" fill="#173e68"/>
+  <circle cx="462" cy="930" r="13" fill="#173e68"/>
+  <circle cx="596" cy="810" r="13" fill="#173e68"/>
+  <circle cx="730" cy="880" r="13" fill="#173e68"/>
+  <circle cx="864" cy="830" r="13" fill="#173e68"/>
+  <text x="138" y="1094" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#58708a">info</text>
+  <text x="270" y="1094" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#58708a">photo</text>
+  <text x="398" y="1094" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#58708a">shot</text>
+  <text x="530" y="1094" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#58708a">product</text>
+  <text x="684" y="1094" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#58708a">poster</text>
+  <text x="806" y="1094" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#58708a">multi</text>
+
+  <rect x="62" y="1218" width="956" height="520" rx="34" fill="#ffffff" filter="url(#shadow)"/>
+  <text x="108" y="1300" font-family="Helvetica, Arial, sans-serif" font-size="38" font-weight="800" fill="#122c44">Template request checklist</text>
+  <g font-family="Helvetica, Arial, sans-serif" font-size="32" fill="#183b58">
+    <rect x="108" y="1370" width="44" height="44" rx="12" fill="#1de7c2"/><text x="178" y="1405">imageCategory: infographic</text>
+    <rect x="108" y="1455" width="44" height="44" rx="12" fill="#6db8ff"/><text x="178" y="1490">assets: one or more image paths</text>
+    <rect x="108" y="1540" width="44" height="44" rx="12" fill="#ffe083"/><text x="178" y="1575">durationSeconds and aspectRatio</text>
+    <rect x="108" y="1625" width="44" height="44" rx="12" fill="#ff8a7a"/><text x="178" y="1660">optional title, subtitle, captions</text>
+  </g>
+  <text x="540" y="1830" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#143a5c" text-anchor="middle">Demo infographic SVG for Remotion template testing</text>
 </svg>

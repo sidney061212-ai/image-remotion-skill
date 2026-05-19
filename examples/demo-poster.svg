@@ -1,16 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#4b79ff"/>
-      <stop offset="100%" stop-color="#7d5cff"/>
+      <stop offset="0%" stop-color="#10091f"/>
+      <stop offset="45%" stop-color="#4b1b58"/>
+      <stop offset="100%" stop-color="#ff7a45"/>
     </linearGradient>
+    <radialGradient id="burst" cx="50%" cy="40%" r="62%">
+      <stop offset="0%" stop-color="#fff2a8" stop-opacity="0.72"/>
+      <stop offset="42%" stop-color="#ff8a45" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#12091f" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   <rect width="1200" height="1600" fill="url(#bg)"/>
-  <circle cx="910" cy="270" r="150" fill="#fff2c5" opacity="0.9"/>
-  <rect x="130" y="210" width="940" height="1180" rx="42" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.28)" stroke-width="4"/>
-  <text x="180" y="440" font-family="Helvetica, Arial, sans-serif" font-size="140" font-weight="800" fill="#ffffff">POSTER</text>
-  <text x="180" y="570" font-family="Helvetica, Arial, sans-serif" font-size="72" font-weight="700" fill="#f1f6ff">Impact Template Demo</text>
-  <rect x="180" y="680" width="480" height="18" rx="9" fill="#ffe3a3"/>
-  <text x="180" y="850" font-family="Helvetica, Arial, sans-serif" font-size="44" fill="#eff5ff">Fast punch-in, breathing zoom, and clean title slam.</text>
-  <text x="180" y="930" font-family="Helvetica, Arial, sans-serif" font-size="44" fill="#eff5ff">No OCR. No regions. Just category + style.</text>
+  <rect width="1200" height="1600" fill="url(#burst)"/>
+  <circle cx="600" cy="690" r="280" fill="#fff6ce" opacity="0.18"/>
+  <path d="M600 370 L736 642 L1036 686 L818 898 L870 1198 L600 1056 L330 1198 L382 898 L164 686 L464 642 Z" fill="#ffe66d"/>
+  <path d="M600 466 L700 668 L922 700 L760 858 L800 1078 L600 974 L400 1078 L440 858 L278 700 L500 668 Z" fill="#ff4d6d"/>
+  <text x="600" y="204" font-family="Helvetica, Arial, sans-serif" font-size="66" font-weight="900" fill="#ffffff" text-anchor="middle">SUMMER LAUNCH</text>
+  <text x="600" y="292" font-family="Helvetica, Arial, sans-serif" font-size="132" font-weight="900" fill="#fff2a8" text-anchor="middle">2026</text>
+  <rect x="220" y="1190" width="760" height="118" rx="59" fill="#ffffff" opacity="0.9"/>
+  <text x="600" y="1264" font-family="Helvetica, Arial, sans-serif" font-size="46" font-weight="900" fill="#3b1348" text-anchor="middle">JUNE 18 - ONLINE</text>
+  <text x="600" y="1372" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#fff7db" text-anchor="middle">PosterImpactTemplate test asset</text>
+  <text x="600" y="1430" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#ffd6bd" text-anchor="middle">Clean punch-in, title slam, final hold</text>
 </svg>

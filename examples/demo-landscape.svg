@@ -1,16 +1,42 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#163a63"/>
-      <stop offset="55%" stop-color="#4f86c6"/>
-      <stop offset="100%" stop-color="#ffb26b"/>
+      <stop offset="0%" stop-color="#12335c"/>
+      <stop offset="45%" stop-color="#72b8e8"/>
+      <stop offset="73%" stop-color="#f7c97b"/>
+      <stop offset="100%" stop-color="#f7f0d7"/>
     </linearGradient>
+    <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5aa8d2"/>
+      <stop offset="100%" stop-color="#183d5a"/>
+    </linearGradient>
+    <filter id="soft" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
   </defs>
   <rect width="1920" height="1080" fill="url(#sky)"/>
-  <circle cx="1450" cy="220" r="90" fill="#fff2c0" opacity="0.92"/>
-  <path d="M0 760 C240 650 380 640 600 720 C840 806 1080 780 1280 690 C1500 590 1710 610 1920 720 V1080 H0 Z" fill="#324e66"/>
-  <path d="M0 820 C260 730 480 760 700 842 C940 930 1210 910 1450 812 C1640 734 1770 736 1920 804 V1080 H0 Z" fill="#243a50"/>
-  <path d="M0 910 C220 840 480 862 710 930 C980 1012 1280 988 1530 906 C1670 860 1800 858 1920 900 V1080 H0 Z" fill="#1a2d3f"/>
-  <text x="120" y="128" font-family="Helvetica, Arial, sans-serif" font-size="54" font-weight="700" fill="#f8fbff">Cinematic Landscape Demo</text>
-  <text x="120" y="184" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#e8f1fb">Template mode example for the landscape category</text>
+  <circle cx="1510" cy="202" r="96" fill="#fff0a8"/>
+  <circle cx="1510" cy="202" r="150" fill="#fff0a8" opacity="0.18" filter="url(#soft)"/>
+  <path d="M0 656 L280 372 L445 560 L650 306 L884 636 Z" fill="#d8e4ee"/>
+  <path d="M410 660 L740 280 L1030 660 Z" fill="#f4fbff"/>
+  <path d="M808 666 L1160 344 L1458 666 Z" fill="#c9d9e5"/>
+  <path d="M1210 670 L1492 420 L1920 686 L1920 1080 L0 1080 L0 700 Z" fill="#294762"/>
+  <path d="M0 690 C230 618 432 640 610 690 C820 750 1040 734 1240 672 C1460 604 1690 616 1920 696 L1920 1080 L0 1080 Z" fill="#1e364f"/>
+  <rect x="0" y="720" width="1920" height="360" fill="url(#lake)"/>
+  <path d="M0 782 C260 740 440 754 640 790 C820 824 1010 826 1210 784 C1440 736 1660 748 1920 802" fill="none" stroke="#bfe8ff" stroke-width="8" opacity="0.42"/>
+  <path d="M140 875 C390 840 560 858 746 890 C928 922 1128 924 1360 884 C1568 848 1738 854 1890 890" fill="none" stroke="#d4f0ff" stroke-width="5" opacity="0.36"/>
+  <g transform="translate(98 540)">
+    <rect x="88" y="250" width="54" height="220" rx="12" fill="#2b2319"/>
+    <path d="M115 0 L24 270 L205 270 Z" fill="#123e2e"/>
+    <path d="M115 74 L42 292 L188 292 Z" fill="#18543a"/>
+    <path d="M115 154 L60 324 L170 324 Z" fill="#1d6543"/>
+  </g>
+  <g transform="translate(1530 600) scale(0.82)">
+    <rect x="88" y="250" width="54" height="220" rx="12" fill="#2b2319"/>
+    <path d="M115 0 L24 270 L205 270 Z" fill="#123e2e"/>
+    <path d="M115 74 L42 292 L188 292 Z" fill="#18543a"/>
+    <path d="M115 154 L60 324 L170 324 Z" fill="#1d6543"/>
+  </g>
+  <text x="116" y="130" font-family="Helvetica, Arial, sans-serif" font-size="54" font-weight="800" fill="#f7fbff">Cinematic Depth Landscape</text>
+  <text x="118" y="184" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#dcecff">Mountains, lake, sunset, and foreground trees for parallax testing</text>
 </svg>

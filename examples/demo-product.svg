@@ -1,19 +1,40 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1600" viewBox="0 0 1600 1600">
   <defs>
-    <radialGradient id="glow" cx="50%" cy="38%" r="60%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
-      <stop offset="100%" stop-color="#e6efff" stop-opacity="0"/>
-    </radialGradient>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#111c2d"/>
-      <stop offset="100%" stop-color="#243b56"/>
+      <stop offset="0%" stop-color="#ecf7ff"/>
+      <stop offset="50%" stop-color="#d9fff0"/>
+      <stop offset="100%" stop-color="#fff1d8"/>
     </linearGradient>
+    <linearGradient id="device" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1c2d4b"/>
+      <stop offset="100%" stop-color="#0b1324"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="28" stdDeviation="24" flood-color="#28425c" flood-opacity="0.26"/>
+    </filter>
   </defs>
   <rect width="1600" height="1600" fill="url(#bg)"/>
-  <circle cx="800" cy="520" r="420" fill="url(#glow)"/>
-  <ellipse cx="800" cy="1230" rx="340" ry="90" fill="#09121d" opacity="0.45"/>
-  <rect x="540" y="320" width="520" height="860" rx="120" fill="#f5f9ff"/>
-  <rect x="610" y="420" width="380" height="620" rx="54" fill="#0f1d2f"/>
-  <circle cx="800" cy="1090" r="34" fill="#d9e7f5"/>
-  <text x="800" y="1470" font-family="Helvetica, Arial, sans-serif" font-size="78" font-weight="700" fill="#f8fbff" text-anchor="middle">Product Hero Demo</text>
+  <circle cx="1240" cy="270" r="210" fill="#7aa7ff" opacity="0.2"/>
+  <circle cx="244" cy="1188" r="260" fill="#40d8b5" opacity="0.2"/>
+  <rect x="154" y="142" width="1292" height="1316" rx="74" fill="#ffffff" filter="url(#shadow)"/>
+  <text x="236" y="282" font-family="Helvetica, Arial, sans-serif" font-size="74" font-weight="900" fill="#12304a">Creator Kit Pro</text>
+  <text x="236" y="340" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#5c7186">All-in-one template rendering bundle</text>
+  <rect x="960" y="214" width="298" height="86" rx="43" fill="#ff7a59"/>
+  <text x="1109" y="270" font-family="Helvetica, Arial, sans-serif" font-size="36" font-weight="800" fill="#ffffff" text-anchor="middle">$49 launch</text>
+
+  <rect x="458" y="438" width="684" height="660" rx="68" fill="url(#device)" filter="url(#shadow)"/>
+  <rect x="512" y="510" width="576" height="462" rx="34" fill="#e6f7ff"/>
+  <rect x="566" y="564" width="466" height="76" rx="24" fill="#6db8ff"/>
+  <rect x="566" y="692" width="186" height="186" rx="28" fill="#1de7c2"/>
+  <rect x="790" y="692" width="242" height="42" rx="21" fill="#15385e" opacity="0.84"/>
+  <rect x="790" y="760" width="196" height="34" rx="17" fill="#7390ad"/>
+  <rect x="790" y="822" width="226" height="34" rx="17" fill="#9bb4cc"/>
+  <circle cx="800" cy="1034" r="36" fill="#ffffff" opacity="0.9"/>
+  <path d="M616 1198 C712 1142 890 1142 986 1198" fill="none" stroke="#7d8da3" stroke-width="16" stroke-linecap="round"/>
+
+  <rect x="236" y="1198" width="420" height="118" rx="38" fill="#12304a"/>
+  <text x="446" y="1270" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="800" fill="#ffffff" text-anchor="middle">Start Render</text>
+  <rect x="720" y="1198" width="434" height="118" rx="38" fill="#f3fbff" stroke="#b3d8ee" stroke-width="4"/>
+  <text x="937" y="1270" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="800" fill="#12304a" text-anchor="middle">Template Preview</text>
+  <text x="236" y="1404" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#5c7186">ProductHeroTemplate demo asset</text>
 </svg>

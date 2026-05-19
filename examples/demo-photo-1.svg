@@ -1,6 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
-  <rect width="1200" height="1200" fill="#f7d9c4"/>
-  <circle cx="370" cy="360" r="180" fill="#d08c60"/>
-  <rect x="560" y="220" width="360" height="540" rx="54" fill="#fff3e8"/>
-  <text x="600" y="1030" font-family="Helvetica, Arial, sans-serif" font-size="62" font-weight="700" fill="#7b4b2d">Photo 1</text>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffd166"/>
+      <stop offset="100%" stop-color="#ef476f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1200" fill="url(#bg)"/>
+  <circle cx="948" cy="220" r="118" fill="#fff6c7" opacity="0.9"/>
+  <path d="M0 780 C190 620 344 604 536 742 C720 874 910 856 1200 674 V1200 H0 Z" fill="#073b4c"/>
+  <path d="M0 890 C196 754 396 760 602 888 C792 1006 994 994 1200 840 V1200 H0 Z" fill="#118ab2"/>
+  <text x="72" y="104" font-family="Helvetica, Arial, sans-serif" font-size="48" font-weight="900" fill="#ffffff">Photo 01</text>
+  <text x="72" y="160" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#fff8df">Sunset coast</text>
 </svg>

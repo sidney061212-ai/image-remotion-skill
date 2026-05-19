@@ -1,6 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
-  <rect width="1200" height="1200" fill="#d8efe2"/>
-  <path d="M120 760 C310 620 520 610 680 720 C820 818 980 804 1080 722 V1200 H120 Z" fill="#6ba77d"/>
-  <circle cx="860" cy="260" r="110" fill="#fef3c6"/>
-  <text x="120" y="1030" font-family="Helvetica, Arial, sans-serif" font-size="62" font-weight="700" fill="#295741">Photo 2</text>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#14213d"/>
+      <stop offset="100%" stop-color="#000814"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1200" fill="url(#bg)"/>
+  <rect x="118" y="182" width="964" height="680" rx="54" fill="#1f4f78"/>
+  <rect x="182" y="246" width="302" height="552" rx="34" fill="#2ec4b6"/>
+  <rect x="536" y="246" width="482" height="74" rx="37" fill="#edf6f9"/>
+  <rect x="536" y="370" width="374" height="48" rx="24" fill="#a9d6e5"/>
+  <rect x="536" y="468" width="430" height="48" rx="24" fill="#80ced7"/>
+  <circle cx="336" cy="520" r="112" fill="#ffbf69"/>
+  <text x="82" y="1036" font-family="Helvetica, Arial, sans-serif" font-size="52" font-weight="900" fill="#ffffff">Photo 02</text>
+  <text x="82" y="1098" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#b8d8ee">Studio board</text>
 </svg>

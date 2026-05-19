@@ -1,14 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1600" viewBox="0 0 1080 1600">
   <defs>
+    <radialGradient id="halo" cx="50%" cy="34%" r="56%">
+      <stop offset="0%" stop-color="#fff4c6" stop-opacity="0.9"/>
+      <stop offset="45%" stop-color="#a9dcff" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#18284a" stop-opacity="0"/>
+    </radialGradient>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#eff5ff"/>
-      <stop offset="100%" stop-color="#dfe8ff"/>
+      <stop offset="0%" stop-color="#14264c"/>
+      <stop offset="100%" stop-color="#6b5ca5"/>
     </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="24" stdDeviation="18" flood-color="#10152c" flood-opacity="0.35"/>
+    </filter>
   </defs>
   <rect width="1080" height="1600" fill="url(#bg)"/>
-  <circle cx="540" cy="400" r="190" fill="#f7d8d8"/>
-  <rect x="360" y="580" width="360" height="560" rx="170" fill="#ffffff"/>
-  <circle cx="540" cy="430" r="110" fill="#f2c6b4"/>
-  <rect x="420" y="760" width="240" height="310" rx="110" fill="#aac3ff"/>
-  <text x="540" y="1350" font-family="Helvetica, Arial, sans-serif" font-size="68" font-weight="700" fill="#27456b" text-anchor="middle">Portrait Demo</text>
+  <rect width="1080" height="1600" fill="url(#halo)"/>
+  <circle cx="540" cy="520" r="315" fill="#ffffff" opacity="0.08"/>
+  <circle cx="540" cy="416" r="188" fill="#f0c7a5" filter="url(#shadow)"/>
+  <path d="M360 412 C360 250 474 166 582 178 C724 194 812 316 754 496 C716 440 642 424 586 352 C532 440 438 456 360 412 Z" fill="#2d2744"/>
+  <ellipse cx="472" cy="448" rx="24" ry="32" fill="#2c2440"/>
+  <ellipse cx="612" cy="448" rx="24" ry="32" fill="#2c2440"/>
+  <path d="M486 554 C522 586 572 586 610 554" fill="none" stroke="#8f5542" stroke-width="16" stroke-linecap="round"/>
+  <path d="M318 996 C352 766 442 664 540 664 C638 664 730 766 764 996 L856 1320 L224 1320 Z" fill="#f8fbff" filter="url(#shadow)"/>
+  <path d="M362 1002 C390 790 462 720 540 720 C618 720 692 790 720 1002 L772 1248 L308 1248 Z" fill="#7aa7ff"/>
+  <rect x="140" y="1288" width="800" height="130" rx="38" fill="#ffffff" opacity="0.86"/>
+  <text x="540" y="1350" font-family="Helvetica, Arial, sans-serif" font-size="42" font-weight="800" fill="#27345c" text-anchor="middle">Portrait Focus Demo</text>
+  <text x="540" y="1398" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#637093" text-anchor="middle">Centered face, soft halo, gentle push-in target</text>
 </svg>
