@@ -194,3 +194,201 @@ export interface TemplateSceneProps {
   asset?: Asset;
   secondaryAsset?: Asset;
 }
+
+export type MotionRecipeId =
+  | 'INFOGRAPHIC_OVERVIEW_TO_KEYPOINTS'
+  | 'INFOGRAPHIC_STEP_SCAN'
+  | 'STORYBOARD_PANEL_PUSH'
+  | 'STORYBOARD_PANEL_HOP'
+  | 'SCREENSHOT_TOP_TO_BOTTOM_SCAN'
+  | 'COMPARISON_LEFT_RIGHT_REVEAL'
+  | 'POSTER_HERO_DEPTH_PUSH'
+  | 'COLLAGE_ASSEMBLE'
+  | 'DOCUMENT_LINE_SPOTLIGHT'
+  | 'PHOTO_KEN_BURNS';
+
+export type MotionGoal =
+  | 'animate-single-image'
+  | 'animate-infographic'
+  | 'animate-storyboard'
+  | 'animate-screenshot'
+  | 'animate-poster'
+  | 'animate-collage'
+  | 'animate-comparison'
+  | 'animate-document'
+  | 'animate-photo';
+
+export type TargetPlatform =
+  | 'douyin'
+  | 'tiktok'
+  | 'xiaohongshu'
+  | 'youtube-shorts'
+  | 'bilibili'
+  | 'presentation'
+  | 'generic';
+
+export type MotionStyle =
+  | 'clean'
+  | 'tech'
+  | 'cinematic'
+  | 'energetic'
+  | 'documentary'
+  | 'minimal';
+
+export type ImageKind =
+  | 'infographic'
+  | 'storyboard'
+  | 'screenshot'
+  | 'document'
+  | 'chart'
+  | 'poster'
+  | 'portrait'
+  | 'product'
+  | 'collage'
+  | 'comparison'
+  | 'photo'
+  | 'unknown';
+
+export type LayoutKind =
+  | 'single-focus'
+  | 'vertical-sections'
+  | 'horizontal-sections'
+  | 'grid'
+  | 'comic-panels'
+  | 'timeline'
+  | 'comparison-split'
+  | 'dense-document'
+  | 'hero-title'
+  | 'mixed';
+
+export type RegionRole =
+  | 'title'
+  | 'subtitle'
+  | 'hero'
+  | 'number'
+  | 'chart'
+  | 'step'
+  | 'panel'
+  | 'comparison-left'
+  | 'comparison-right'
+  | 'quote'
+  | 'cta'
+  | 'detail'
+  | 'background';
+
+export type MotionHint =
+  | 'hold'
+  | 'push-in'
+  | 'pull-out'
+  | 'pan-to'
+  | 'scan'
+  | 'hop'
+  | 'whip'
+  | 'reveal'
+  | 'compare';
+
+export interface AiVisualRegion {
+  id: string;
+  role?: RegionRole;
+  label?: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  importance?: number;
+  order?: number;
+  motionHint?: MotionHint;
+}
+
+export interface AiMotionRequest {
+  version: '1.0';
+  task: {
+    goal: MotionGoal;
+    platform?: TargetPlatform;
+    durationSeconds: number;
+    aspectRatio: '9:16' | '16:9' | '1:1';
+    style?: MotionStyle;
+    preferredRecipe?: MotionRecipeId;
+  };
+  asset: {
+    id: string;
+    path: string;
+    width: number;
+    height: number;
+    kind: ImageKind;
+    description?: string;
+  };
+  visualStructure: {
+    layout: LayoutKind;
+    regions: AiVisualRegion[];
+    readingOrder: string[];
+    primaryRegionId?: string;
+  };
+  script?: {
+    title?: string;
+    captions?: Array<{
+      text: string;
+      start?: number;
+      end?: number;
+      attachToRegionId?: string;
+    }>;
+  };
+  constraints?: {
+    avoidCroppingText?: boolean;
+    avoidFastMotion?: boolean;
+    allowWhipPan?: boolean;
+    allowBlur?: boolean;
+    maxZoom?: number;
+    minHoldSeconds?: number;
+  };
+}
+
+export type CameraTarget =
+  | {type: 'full'}
+  | {type: 'region'; regionId: string}
+  | {type: 'point'; cx: number; cy: number};
+
+export interface CameraKeyframe {
+  time: number;
+  target: CameraTarget;
+  scale: number;
+  easing?: 'linear' | 'easeInOut' | 'spring' | 'hold' | 'whip';
+  label?: string;
+}
+
+export interface OverlayEvent {
+  time: number;
+  duration: number;
+  type:
+    | 'focus-box'
+    | 'spotlight'
+    | 'caption'
+    | 'number-pulse'
+    | 'label'
+    | 'wipe-line'
+    | 'scan-line';
+  regionId?: string;
+  text?: string;
+  style?: Record<string, unknown>;
+}
+
+export interface MotionPlan {
+  version: '2.0';
+  sourceRequestVersion: '1.0';
+  image: string;
+  imageWidth: number;
+  imageHeight: number;
+  outputWidth: number;
+  outputHeight: number;
+  fps: number;
+  durationSeconds: number;
+  recipeId: MotionRecipeId;
+  visualStructure: AiMotionRequest['visualStructure'];
+  camera: CameraKeyframe[];
+  overlays: OverlayEvent[];
+  renderOptions?: {
+    allowBlur?: boolean;
+    allowWhipPan?: boolean;
+  };
+  warnings?: string[];
+}

@@ -1,3 +1,10 @@
+/**
+ * Legacy / experimental storyboard compiler.
+ *
+ * This path keeps the original script-intent -> T01-T16 template flow for
+ * backwards compatibility, but the recommended AI-facing mainline now starts
+ * from AiMotionRequest and compiles a MotionPlan instead.
+ */
 import {DEFAULT_FPS} from './constants';
 import {estimateSceneDuration, getPrimaryTemplates, inferIntent, inferVisualTarget, selectTemplate} from './selector';
 import type {Asset, FocusRegion, InputPackage, Scene, Storyboard, TemplateId} from '../types';

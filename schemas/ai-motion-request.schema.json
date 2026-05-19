@@ -1,0 +1,320 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/ai-motion-request.schema.json",
+  "title": "AiMotionRequest",
+  "description": "AI-facing request schema for deterministic image motion compilation. The upstream AI should analyze the image first, then provide structure, regions, reading order, and motion intent here.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "task", "asset", "visualStructure"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Schema version for the AI motion request. Must be exactly '1.0'."
+    },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["goal", "durationSeconds", "aspectRatio"],
+      "properties": {
+        "goal": {
+          "type": "string",
+          "enum": [
+            "animate-single-image",
+            "animate-infographic",
+            "animate-storyboard",
+            "animate-screenshot",
+            "animate-poster",
+            "animate-collage",
+            "animate-comparison",
+            "animate-document",
+            "animate-photo"
+          ],
+          "description": "High-level animation goal chosen by the upstream AI."
+        },
+        "platform": {
+          "type": "string",
+          "enum": [
+            "douyin",
+            "tiktok",
+            "xiaohongshu",
+            "youtube-shorts",
+            "bilibili",
+            "presentation",
+            "generic"
+          ],
+          "description": "Optional target platform hint for future policy and pacing choices."
+        },
+        "durationSeconds": {
+          "type": "number",
+          "minimum": 3,
+          "maximum": 120,
+          "description": "Total requested output duration in seconds."
+        },
+        "aspectRatio": {
+          "type": "string",
+          "enum": ["9:16", "16:9", "1:1"],
+          "description": "Requested output aspect ratio."
+        },
+        "style": {
+          "type": "string",
+          "enum": ["clean", "tech", "cinematic", "energetic", "documentary", "minimal"],
+          "description": "Optional motion style hint. This affects recipe tuning but not recipe selection precedence."
+        },
+        "preferredRecipe": {
+          "type": "string",
+          "enum": [
+            "INFOGRAPHIC_OVERVIEW_TO_KEYPOINTS",
+            "INFOGRAPHIC_STEP_SCAN",
+            "STORYBOARD_PANEL_PUSH",
+            "STORYBOARD_PANEL_HOP",
+            "SCREENSHOT_TOP_TO_BOTTOM_SCAN",
+            "COMPARISON_LEFT_RIGHT_REVEAL",
+            "POSTER_HERO_DEPTH_PUSH",
+            "COLLAGE_ASSEMBLE",
+            "DOCUMENT_LINE_SPOTLIGHT",
+            "PHOTO_KEN_BURNS"
+          ],
+          "description": "Optional explicit recipe override. Provide this only when the upstream AI is confident which recipe should be used."
+        }
+      }
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "path", "width", "height", "kind"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stable asset identifier supplied by the upstream AI or orchestration layer."
+        },
+        "path": {
+          "type": "string",
+          "description": "Path to the source image. This can be an absolute filesystem path or a project-relative path. The compiler does not inspect the image contents."
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Source image width in pixels."
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Source image height in pixels."
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "infographic",
+            "storyboard",
+            "screenshot",
+            "document",
+            "chart",
+            "poster",
+            "portrait",
+            "product",
+            "collage",
+            "comparison",
+            "photo",
+            "unknown"
+          ],
+          "description": "Image category determined by the upstream AI."
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional plain-language description from the upstream AI. This field is informational and should not drive core camera routing."
+        }
+      }
+    },
+    "visualStructure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["layout", "regions", "readingOrder"],
+      "properties": {
+        "layout": {
+          "type": "string",
+          "enum": [
+            "single-focus",
+            "vertical-sections",
+            "horizontal-sections",
+            "grid",
+            "comic-panels",
+            "timeline",
+            "comparison-split",
+            "dense-document",
+            "hero-title",
+            "mixed"
+          ],
+          "description": "Global layout classification inferred by the upstream AI."
+        },
+        "regions": {
+          "type": "array",
+          "description": "Visual regions of interest. All region coordinates must use source-image pixel coordinates, not normalized coordinates.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "x", "y", "w", "h"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Stable region identifier used by readingOrder, primaryRegionId, overlays, and captions."
+              },
+              "role": {
+                "type": "string",
+                "enum": [
+                  "title",
+                  "subtitle",
+                  "hero",
+                  "number",
+                  "chart",
+                  "step",
+                  "panel",
+                  "comparison-left",
+                  "comparison-right",
+                  "quote",
+                  "cta",
+                  "detail",
+                  "background"
+                ],
+                "description": "Semantic role assigned by the upstream AI."
+              },
+              "label": {
+                "type": "string",
+                "description": "Human-readable label used only for debugging or label overlays."
+              },
+              "x": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Left coordinate in source-image pixels."
+              },
+              "y": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Top coordinate in source-image pixels."
+              },
+              "w": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "description": "Region width in source-image pixels."
+              },
+              "h": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "description": "Region height in source-image pixels."
+              },
+              "importance": {
+                "type": "number",
+                "description": "Optional numeric importance score. Higher values suggest stronger emphasis."
+              },
+              "order": {
+                "type": "number",
+                "description": "Optional explicit ordering index when the upstream AI has strong ordering confidence."
+              },
+              "motionHint": {
+                "type": "string",
+                "enum": [
+                  "hold",
+                  "push-in",
+                  "pull-out",
+                  "pan-to",
+                  "scan",
+                  "hop",
+                  "whip",
+                  "reveal",
+                  "compare"
+                ],
+                "description": "Optional local motion hint provided by the upstream AI."
+              }
+            }
+          }
+        },
+        "readingOrder": {
+          "type": "array",
+          "description": "Ordered region ids representing how the upstream AI believes the image should be viewed.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "primaryRegionId": {
+          "type": "string",
+          "description": "Optional main region id for the final hold or primary emphasis."
+        }
+      }
+    },
+    "script": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Optional already-authored text payload. Captions may be attached to regions, but script text must not decide the core motion route.",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Optional display title if the upstream AI already has one."
+        },
+        "captions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text"],
+            "properties": {
+              "text": {
+                "type": "string",
+                "description": "Caption text to render exactly as provided."
+              },
+              "start": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Optional caption start time in seconds."
+              },
+              "end": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Optional caption end time in seconds."
+              },
+              "attachToRegionId": {
+                "type": "string",
+                "description": "Optional region id the caption belongs to."
+              }
+            }
+          }
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Optional safety and motion constraints supplied by the upstream AI.",
+      "properties": {
+        "avoidCroppingText": {
+          "type": "boolean",
+          "default": true,
+          "description": "Default true. When true, compilers should leave padding around text-heavy regions and avoid aggressive zoom that crops readable content."
+        },
+        "avoidFastMotion": {
+          "type": "boolean",
+          "description": "When true, compilers should prefer slower transitions and longer holds."
+        },
+        "allowWhipPan": {
+          "type": "boolean",
+          "default": true,
+          "description": "Default true. When true, some recipes may use whip-pan transitions between distant regions."
+        },
+        "allowBlur": {
+          "type": "boolean",
+          "description": "When false, rendering should avoid velocity blur effects even when motion is fast."
+        },
+        "maxZoom": {
+          "type": "number",
+          "default": 2.2,
+          "minimum": 1,
+          "description": "Maximum allowed zoom multiplier for compiler-generated camera shots."
+        },
+        "minHoldSeconds": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Optional lower bound for hold durations."
+        }
+      }
+    }
+  }
+}

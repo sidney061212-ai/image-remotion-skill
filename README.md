@@ -1,80 +1,95 @@
-# image-remotion-skill（先行版）
+# image-remotion-skill
 
-`image-remotion-skill` 是一个把图片变成视频的开源工具包。  
-核心目标很明确：**给图片添加稳定、可控的运镜效果，输出短视频**。
+`image-remotion-skill` 是一个 **AI-facing image motion skill**。  
+它不做人工剪辑界面，不做拖拽关键帧，不做人类审核面板。它的职责是把上层 AI 已经分析好的图片结构，**确定性地编译成 Remotion `MotionPlan`，再渲染成 MP4**。
 
-当前版本重点适配 **信息图（infographic）** 场景：  
-- 通过 `video-plan.json` 定义镜头路径（关键帧）  
-- 通过 Remotion 渲染为 MP4  
-- 输出过程可复现、可迭代、可审查
+新主线：
 
-后续内容（多图叙事、更多内容类型、自动区域识别等）正在开发中。
-
----
-
-## 1. 项目定位
-
-这个仓库不是“随便生成一个花哨视频”的黑盒工具。  
-它是一个 **工程化的图片转视频底座**，强调：
-
-- 可控：镜头参数都在 JSON 里，便于审查和调优
-- 稳定：同样输入可以稳定复现同样输出
-- 可组合：既可单独渲染，也可接入 AI 工作流
+```text
+AiMotionRequest -> validate -> selectMotionRecipe -> compileMotionPlan -> MotionPlanRenderer -> MP4
+```
 
 ---
 
-## 2. 当前已支持能力
+## Positioning
 
-### A. 信息图运镜渲染（主能力）
+这个仓库适合被上层 AI、agent、批处理工作流调用：
 
-- 单张图片运镜（推近、平移、甩镜、停留）
-- 基于关键帧插值生成平滑镜头
-- 自动按速度触发甩镜模糊（motion blur）
-- 一条命令渲染输出 MP4
+1. AI 生成或接收图片
+2. AI 分析图片结构
+3. AI 产出 `ai-motion-request.json`
+4. 本 skill 编译 `motion-plan.json`
+5. 本 skill 渲染 MP4
 
-入口与相关文件：
-- `src/remotion/InfogramVideo.tsx`
-- `src/remotion/InfogramRoot.tsx`
-- `schemas/infogram-video-plan.schema.json`
-- `render.sh`
+这个 skill **不负责**：
 
-### B. 模板化分镜规划（实验能力）
+- OCR
+- 自动理解图片内容
+- 大模型判断哪些区域重要
+- 人工审核工作流
+- UI 编辑器
 
-- 提供 16 个固定模板（T01～T16）
-- 可由脚本与素材生成结构化 storyboard JSON
-- 适合做“图片确认后再转视频”的可控流程
+这个 skill **只负责**：
 
-入口与相关文件：
-- `src/engine/*`
-- `src/components/*`
-- `src/remotion/RemotionRoot.tsx`
-- `schemas/input.schema.json`
-- `schemas/storyboard.schema.json`
-- `schemas/image-workflow.schema.json`
+- 严格 schema
+- 明确校验错误
+- 可预测 recipe 选择
+- 纯函数 MotionPlan 编译
+- 稳定 Remotion 渲染
 
 ---
 
-## 3. 当前边界（请先了解）
+## Core Formats
 
-- 当前主线只保证 **信息图运镜** 场景可用。
-- 暂不包含自动配音、自动字幕、自动 OCR 框选、UI 审核面板。
-- 多图复杂叙事与更丰富内容类型仍在开发中。
+AI 请求输入：
 
-如果你想先落地“图片 -> 运镜视频”，这个版本已经能用。  
-如果你要完整生产线（自动化素材审核、语音强对齐等），建议在此基础上二次开发。
+- `schemas/ai-motion-request.schema.json`
+- 对应 TypeScript 类型：`AiMotionRequest`
+
+编译输出：
+
+- `schemas/motion-plan.schema.json`
+- 对应 TypeScript 类型：`MotionPlan`
+
+关键约束：
+
+- `visualStructure.regions` 使用 **原图像素坐标**，不是归一化坐标
+- `readingOrder` 表示 AI 认为画面应被观看的顺序
+- 上层 AI 推荐传 `AiMotionRequest`，而不是手写 camera keyframes
+- caption 文本只能来自请求本身，不由 skill 自行生成
 
 ---
 
-## 4. 环境要求
+## Motion Recipes
 
-- Node.js 22（CI 使用 Node 22）
-- npm
-- `ffmpeg`（用于压缩与转码）
-- `python3`（`render.sh` 用于读取 fps）
+当前主线支持这些 recipe：
+
+- `INFOGRAPHIC_OVERVIEW_TO_KEYPOINTS`
+- `INFOGRAPHIC_STEP_SCAN`
+- `STORYBOARD_PANEL_PUSH`
+- `STORYBOARD_PANEL_HOP`
+- `SCREENSHOT_TOP_TO_BOTTOM_SCAN`
+- `COMPARISON_LEFT_RIGHT_REVEAL`
+- `POSTER_HERO_DEPTH_PUSH`
+- `COLLAGE_ASSEMBLE`
+- `DOCUMENT_LINE_SPOTLIGHT`
+- `PHOTO_KEN_BURNS`
+
+推荐 goal：
+
+- 信息图：`animate-infographic`
+- 分景图 / 多格图：`animate-storyboard`
+- 截图：`animate-screenshot`
+- 海报 / 商品图：`animate-poster`
+- 对比图：`animate-comparison`
+- 文档截图：`animate-document`
+- 普通照片：`animate-photo`
 
 ---
 
-## 5. 快速开始
+## CLI
+
+安装依赖并构建：
 
 ```bash
 npm install
@@ -82,103 +97,92 @@ npm run typecheck
 npm run build
 ```
 
-启动 Remotion Studio：
+编译 MotionPlan：
 
 ```bash
-npm run dev
+npm run plan:ai -- examples/ai-request-infographic.json outputs/infographic-plan.json
 ```
 
-渲染内置信息图示例：
+渲染 MP4：
 
 ```bash
-npm run render:example
+npm run render:motion -- outputs/infographic-plan.json out/infographic.mp4
 ```
 
-执行后会生成：
-- `out/video.mp4`
+`render` 命令会自动把图片 staging 到 Remotion `public/`，并写入 `outputs/current-motion-plan.json` 作为开发 fallback。
 
 ---
 
-## 6. 直接渲染你自己的信息图
+## Remotion Entrypoints
 
-1. 把图片放到 `public/` 下，例如：`public/my-project/infographic.png`
-2. 按 schema 写一个 plan 文件（可参考 `examples/example-infogram-plan.json`）
-3. 执行渲染：
+新主线：
 
-```bash
-./render.sh examples/example-infogram-plan.json ~/Desktop/demo.mp4
-```
+- `src/remotion/MotionPlanRenderer.tsx`
+- `src/remotion/MotionPlanRoot.tsx`
+- Composition id: `MotionPlan`
 
-或：
+保留的旧入口：
 
-```bash
-./render.sh <你的-plan.json> <输出.mp4>
-```
-
-`render.sh` 会把 plan 临时复制到 `outputs/current-plan.json`，再调用 Remotion 渲染。
+- `src/remotion/InfogramRoot.tsx`
+- `src/remotion/RemotionRoot.tsx`
 
 ---
 
-## 7. `video-plan.json` 关键字段
+## Legacy Status
 
-完整定义见：
-- `schemas/infogram-video-plan.schema.json`
+旧的 `Storyboard` / `T01-T16` 模板系统仍然保留，避免破坏已有调用，但现在应视为：
 
-核心字段：
-- `image`: 相对 `public/` 的图片路径
-- `imageWidth` / `imageHeight`: 原图尺寸
-- `outputWidth` / `outputHeight`: 输出分辨率
-- `fps`: 帧率
-- `durationSeconds`: 总时长
-- `keyframes`: 运镜关键帧数组，元素为 `{time, cx, cy, scale}`
+- `legacy`
+- `experimental`
+- 非主推荐路径
 
-关键帧含义：
-- `time`: 秒
-- `cx` / `cy`: 镜头中心在图片上的归一化坐标（0~1）
-- `scale`: 缩放倍数（`1.0` 为全图）
+尤其是：
 
----
+- `src/engine/storyboard.ts`
+- `schemas/input.schema.json`
+- `schemas/storyboard.schema.json`
+- `src/components/*` 的模板组件
 
-## 8. 仓库结构
-
-```text
-skill/                      AI 技能说明
-schemas/                    JSON Schema（输入/输出/工作流）
-examples/                   示例输入与示例计划
-public/examples/            示例信息图资产
-src/engine/                 分镜规划逻辑
-src/components/             固定模板组件（T01～T16）
-src/remotion/               Remotion 组合入口与渲染组件
-render.sh                   一键渲染脚本
-```
+它们更偏向旧的脚本驱动模板路线；新的 AI skill 主线以 `AiMotionRequest` 和 `MotionPlan` 为核心。
 
 ---
 
-## 9. 作为库使用（分镜规划）
+## Examples
+
+AI-facing examples：
+
+- `examples/ai-request-infographic.json`
+- `examples/ai-request-storyboard.json`
+- `examples/ai-request-screenshot.json`
+- `examples/ai-request-comparison.json`
+
+这些例子都假设：
+
+- 上层 AI 已经知道图片尺寸
+- 上层 AI 已经给出 `regions`
+- 上层 AI 已经给出 `readingOrder`
+
+---
+
+## Library Usage
 
 ```ts
-import {buildStoryboard} from 'image-remotion-skill';
-import input from './examples/example-input.json';
+import {buildMotionPlanFromAiRequest} from 'image-remotion-skill';
+import request from './examples/ai-request-infographic.json';
 
-const storyboard = buildStoryboard(input);
-console.log(JSON.stringify(storyboard, null, 2));
+const plan = buildMotionPlanFromAiRequest(request);
+console.log(plan.recipeId);
+console.log(plan.camera);
 ```
 
 ---
 
-## 10. 开源先行版说明
+## Development Notes
 
-这是先行版（preview）。  
-优先保证“信息图运镜”这条链路稳定可用，再逐步扩展内容类型与自动化能力。
+- 新的 compiler / recipe 模块都应该保持纯函数
+- 渲染阶段可以做文件 staging，但不应反向污染编译逻辑
+- 文案只能影响 caption / label overlay，不应决定主镜头路径
 
-欢迎提 issue / PR，建议优先围绕以下方向：
-- 运镜规划质量
-- 信息图字幕可读性
-- schema 扩展兼容性
-- 渲染性能与输出体积优化
+## License
 
----
-
-## 11. 许可证
-
-MIT，详见 `LICENSE`。
+MIT

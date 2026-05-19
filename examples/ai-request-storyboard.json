@@ -1,0 +1,97 @@
+{
+  "version": "1.0",
+  "task": {
+    "goal": "animate-storyboard",
+    "platform": "presentation",
+    "durationSeconds": 10,
+    "aspectRatio": "16:9",
+    "style": "cinematic"
+  },
+  "asset": {
+    "id": "storyboard-demo",
+    "path": "examples/demo-infographic.svg",
+    "width": 1080,
+    "height": 1920,
+    "kind": "storyboard",
+    "description": "A storyboard sheet with several visual panels laid out in reading order."
+  },
+  "visualStructure": {
+    "layout": "comic-panels",
+    "regions": [
+      {
+        "id": "panel-1",
+        "role": "panel",
+        "label": "Opening wide panel",
+        "x": 60,
+        "y": 120,
+        "w": 420,
+        "h": 480,
+        "importance": 0.9,
+        "order": 1
+      },
+      {
+        "id": "panel-2",
+        "role": "panel",
+        "label": "Reaction panel",
+        "x": 540,
+        "y": 120,
+        "w": 420,
+        "h": 480,
+        "importance": 0.88,
+        "order": 2
+      },
+      {
+        "id": "panel-3",
+        "role": "panel",
+        "label": "Action panel",
+        "x": 60,
+        "y": 720,
+        "w": 420,
+        "h": 480,
+        "importance": 0.92,
+        "order": 3
+      },
+      {
+        "id": "panel-4",
+        "role": "panel",
+        "label": "Ending panel",
+        "x": 540,
+        "y": 720,
+        "w": 420,
+        "h": 480,
+        "importance": 0.94,
+        "order": 4,
+        "motionHint": "whip"
+      }
+    ],
+    "readingOrder": ["panel-1", "panel-2", "panel-3", "panel-4"],
+    "primaryRegionId": "panel-4"
+  },
+  "script": {
+    "captions": [
+      {
+        "text": "镜头按分镜顺序依次推进。",
+        "attachToRegionId": "panel-1"
+      },
+      {
+        "text": "反应镜头承接前一格。",
+        "attachToRegionId": "panel-2"
+      },
+      {
+        "text": "动作镜头强调主体变化。",
+        "attachToRegionId": "panel-3"
+      },
+      {
+        "text": "最后停在收束画面。",
+        "attachToRegionId": "panel-4"
+      }
+    ]
+  },
+  "constraints": {
+    "avoidCroppingText": true,
+    "allowWhipPan": true,
+    "allowBlur": true,
+    "maxZoom": 2,
+    "minHoldSeconds": 0.7
+  }
+}

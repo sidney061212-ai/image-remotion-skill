@@ -1,0 +1,82 @@
+{
+  "version": "1.0",
+  "task": {
+    "goal": "animate-screenshot",
+    "platform": "generic",
+    "durationSeconds": 11,
+    "aspectRatio": "9:16",
+    "style": "tech"
+  },
+  "asset": {
+    "id": "screenshot-demo",
+    "path": "examples/demo-infographic.svg",
+    "width": 1080,
+    "height": 1920,
+    "kind": "screenshot",
+    "description": "A product screenshot with a header, key list, and a highlighted settings area."
+  },
+  "visualStructure": {
+    "layout": "vertical-sections",
+    "regions": [
+      {
+        "id": "header",
+        "role": "title",
+        "label": "Top navigation",
+        "x": 90,
+        "y": 90,
+        "w": 900,
+        "h": 180,
+        "importance": 0.78,
+        "order": 1
+      },
+      {
+        "id": "list",
+        "role": "detail",
+        "label": "Main list content",
+        "x": 90,
+        "y": 360,
+        "w": 900,
+        "h": 820,
+        "importance": 0.9,
+        "order": 2
+      },
+      {
+        "id": "settings",
+        "role": "detail",
+        "label": "Important settings panel",
+        "x": 140,
+        "y": 1280,
+        "w": 800,
+        "h": 360,
+        "importance": 0.96,
+        "order": 3
+      }
+    ],
+    "readingOrder": ["header", "list", "settings"],
+    "primaryRegionId": "settings"
+  },
+  "script": {
+    "captions": [
+      {
+        "text": "先从顶部导航建立上下文。",
+        "attachToRegionId": "header"
+      },
+      {
+        "text": "中间列表区域解释主要操作路径。",
+        "attachToRegionId": "list"
+      },
+      {
+        "text": "最后停在关键设置区域。",
+        "attachToRegionId": "settings"
+      }
+    ]
+  },
+  "constraints": {
+    "avoidCroppingText": true,
+    "avoidFastMotion": true,
+    "allowWhipPan": false,
+    "allowBlur": false,
+    "maxZoom": 2,
+    "minHoldSeconds": 0.9
+  }
+}
