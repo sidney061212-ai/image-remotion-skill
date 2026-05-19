@@ -20,6 +20,12 @@ const templateIdSet = new Set<string>(TEMPLATE_IDS_V2);
 export const isTemplateIdV2 = (value: unknown): value is TemplateIdV2 =>
   typeof value === 'string' && templateIdSet.has(value);
 
+const isMultiImageCategory = (imageCategory: TemplateRenderRequest['task']['imageCategory']): boolean =>
+  imageCategory === 'collage' || imageCategory === 'multi-image';
+
+const isCinematicCategory = (imageCategory: TemplateRenderRequest['task']['imageCategory'] | 'photo'): boolean =>
+  imageCategory === 'landscape' || imageCategory === 'photo' || imageCategory === 'unknown';
+
 export function selectTemplate(request: TemplateRenderRequest): TemplateIdV2 {
   const {imageCategory, effectStyle, preferredTemplate} = request.task;
 
@@ -27,36 +33,40 @@ export function selectTemplate(request: TemplateRenderRequest): TemplateIdV2 {
     return preferredTemplate;
   }
 
-  if (effectStyle === 'cinematic-depth') {
-    return 'CinematicDepthTemplate';
+  if (imageCategory === 'storyboard') {
+    return 'StoryboardGridTemplate';
   }
 
-  if (effectStyle === 'photo-wall') {
+  if (imageCategory === 'infographic') {
+    return 'InfographicZoomTemplate';
+  }
+
+  if (isMultiImageCategory(imageCategory)) {
+    if (effectStyle === 'card-stack') {
+      return 'CardStackTemplate';
+    }
+
+    if (effectStyle === 'grid-shuffle') {
+      return 'GridShuffleTemplate';
+    }
+
     return 'PhotoWallTemplate';
-  }
-
-  if (effectStyle === 'card-stack') {
-    return 'CardStackTemplate';
-  }
-
-  if (effectStyle === 'grid-shuffle') {
-    return 'GridShuffleTemplate';
-  }
-
-  if (effectStyle === 'product-hero') {
-    return 'ProductHeroTemplate';
-  }
-
-  if (effectStyle === 'poster-impact') {
-    return 'PosterImpactTemplate';
   }
 
   if (effectStyle === 'tech-scan' && (imageCategory === 'screenshot' || imageCategory === 'document')) {
     return 'ScreenshotScanTemplate';
   }
 
-  if (imageCategory === 'infographic') {
-    return 'InfographicZoomTemplate';
+  if (effectStyle === 'product-hero' && (imageCategory === 'product' || imageCategory === 'unknown')) {
+    return 'ProductHeroTemplate';
+  }
+
+  if (effectStyle === 'poster-impact' && (imageCategory === 'poster' || imageCategory === 'unknown')) {
+    return 'PosterImpactTemplate';
+  }
+
+  if (effectStyle === 'cinematic-depth' && isCinematicCategory(imageCategory)) {
+    return 'CinematicDepthTemplate';
   }
 
   if (imageCategory === 'landscape') {
@@ -79,16 +89,8 @@ export function selectTemplate(request: TemplateRenderRequest): TemplateIdV2 {
     return 'PosterImpactTemplate';
   }
 
-  if (imageCategory === 'storyboard') {
-    return 'StoryboardGridTemplate';
-  }
-
   if (imageCategory === 'document') {
     return 'DocumentFocusTemplate';
-  }
-
-  if (imageCategory === 'collage' || imageCategory === 'multi-image') {
-    return 'PhotoWallTemplate';
   }
 
   return 'SafeKenBurnsTemplate';

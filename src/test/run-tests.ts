@@ -214,6 +214,15 @@ const main = async (): Promise<void> => {
   const templateInfographicPlan = buildTemplateRenderPlan(templateInfographicRequest);
   assert.equal(templateInfographicPlan.templateId, 'InfographicZoomTemplate');
 
+  const infographicWithPhotoWallStyle: TemplateRenderRequest = {
+    ...templateInfographicRequest,
+    task: {
+      ...templateInfographicRequest.task,
+      effectStyle: 'photo-wall',
+    },
+  };
+  assert.equal(selectTemplate(infographicWithPhotoWallStyle), 'InfographicZoomTemplate');
+
   const templateLandscapeRequest: TemplateRenderRequest = {
     ...createTemplateRequest(),
     task: {
@@ -282,6 +291,15 @@ const main = async (): Promise<void> => {
     ],
   };
   assert.equal(selectTemplate(templateScreenshotRequest), 'ScreenshotScanTemplate');
+
+  const screenshotWithCardStackStyle: TemplateRenderRequest = {
+    ...templateScreenshotRequest,
+    task: {
+      ...templateScreenshotRequest.task,
+      effectStyle: 'card-stack',
+    },
+  };
+  assert.equal(selectTemplate(screenshotWithCardStackStyle), 'ScreenshotScanTemplate');
 
   const templatePosterRequest: TemplateRenderRequest = {
     ...createTemplateRequest(),
@@ -354,6 +372,15 @@ const main = async (): Promise<void> => {
   };
   assert.equal(selectTemplate(templateStoryboardRequest), 'StoryboardGridTemplate');
   assert.equal(buildTemplateRenderPlan(templateStoryboardRequest).templateId, 'StoryboardGridTemplate');
+
+  const storyboardWithGridShuffleStyle: TemplateRenderRequest = {
+    ...templateStoryboardRequest,
+    task: {
+      ...templateStoryboardRequest.task,
+      effectStyle: 'grid-shuffle',
+    },
+  };
+  assert.equal(selectTemplate(storyboardWithGridShuffleStyle), 'StoryboardGridTemplate');
 
   const templateUnknownRequest: TemplateRenderRequest = {
     ...createTemplateRequest(),

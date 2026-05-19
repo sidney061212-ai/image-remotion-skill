@@ -396,6 +396,7 @@ export interface MotionPlan {
 export type ImageCategory =
   | 'infographic'
   | 'landscape'
+  | 'photo'
   | 'portrait'
   | 'product'
   | 'screenshot'

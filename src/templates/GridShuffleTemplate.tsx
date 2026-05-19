@@ -2,10 +2,15 @@ import React from 'react';
 import {Img, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
 import type {TemplateProps} from './common';
 import {TemplateShell, buildGridLayout, getAssetSrc, getPrimaryAsset, getProgress} from './common';
+import {SafeKenBurnsTemplate} from './SafeKenBurnsTemplate';
 
 const lerp = (from: number, to: number, progress: number): number => from + (to - from) * progress;
 
 export const GridShuffleTemplate: React.FC<TemplateProps> = ({plan}) => {
+  if (plan.assets.length < 2) {
+    return <SafeKenBurnsTemplate plan={plan} />;
+  }
+
   const frame = useCurrentFrame();
   const {durationInFrames, width, height} = useVideoConfig();
   const assets = plan.assets.slice(0, 9);
