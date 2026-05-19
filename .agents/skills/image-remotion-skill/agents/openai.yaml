@@ -1,0 +1,6 @@
+interface:
+  display_name: "Image Remotion Skill"
+  short_description: "Repo-specific patterns and workflows for image-remotion-skill"
+  default_prompt: "Use the image-remotion-skill repo skill to follow existing architecture, testing, and workflow conventions."
+policy:
+  allow_implicit_invocation: true
