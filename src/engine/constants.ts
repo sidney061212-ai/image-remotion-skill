@@ -1,6 +1,6 @@
-import type {AssetType, Intent, TemplateId} from '../types';
+import type {AssetType, Intent, LegacyTemplateId} from '../types';
 
-export const INTENT_TEMPLATE_MAP: Record<Intent, TemplateId[]> = {
+export const INTENT_TEMPLATE_MAP: Record<Intent, LegacyTemplateId[]> = {
   HOOK: ['T01_HookZoomHit', 'T02_BigHeadlineSlam', 'T14_FreezePunch'],
   CLAIM: ['T02_BigHeadlineSlam', 'T10_BulletStackReveal', 'T11_EvidencePin'],
   FOCUS: ['T03_FocusBoxPush', 'T04_SpotlightDim', 'T11_EvidencePin'],
@@ -13,7 +13,7 @@ export const INTENT_TEMPLATE_MAP: Record<Intent, TemplateId[]> = {
   ENDING: ['T16_OutroLoopCard', 'T14_FreezePunch', 'T02_BigHeadlineSlam'],
 };
 
-export const ASSET_TEMPLATE_MAP: Record<string, TemplateId[]> = {
+export const ASSET_TEMPLATE_MAP: Record<string, LegacyTemplateId[]> = {
   portrait: ['T01_HookZoomHit', 'T02_BigHeadlineSlam', 'T13_ParallaxDepth', 'T16_OutroLoopCard'],
   screenshot: ['T03_FocusBoxPush', 'T04_SpotlightDim', 'T06_ScreenshotScan', 'T07_MagnifierTrack', 'T11_EvidencePin'],
   document: ['T03_FocusBoxPush', 'T04_SpotlightDim', 'T06_ScreenshotScan', 'T10_BulletStackReveal', 'T11_EvidencePin'],
@@ -23,7 +23,7 @@ export const ASSET_TEMPLATE_MAP: Record<string, TemplateId[]> = {
   collage: ['T05_RegionHop', 'T08_SplitCompare', 'T10_BulletStackReveal'],
 };
 
-export const TEMPLATE_DURATIONS: Record<TemplateId, [number, number]> = {
+export const TEMPLATE_DURATIONS: Record<LegacyTemplateId, [number, number]> = {
   T01_HookZoomHit: [0.5, 1.2],
   T02_BigHeadlineSlam: [0.6, 1.5],
   T03_FocusBoxPush: [1.0, 2.5],
@@ -46,7 +46,7 @@ export const DEFAULT_FPS = 30;
 export const DEFAULT_ASSET_WIDTH = 1080;
 export const DEFAULT_ASSET_HEIGHT = 1920;
 
-export const TEMPLATE_SHORT_NAMES: Record<TemplateId, string> = {
+export const TEMPLATE_SHORT_NAMES: Record<LegacyTemplateId, string> = {
   T01_HookZoomHit: 'T01',
   T02_BigHeadlineSlam: 'T02',
   T03_FocusBoxPush: 'T03',

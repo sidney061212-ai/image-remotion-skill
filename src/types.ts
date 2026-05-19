@@ -20,7 +20,7 @@ export type AssetType =
   | 'collage'
   | string;
 
-export type TemplateId =
+export type LegacyTemplateId =
   | 'T01_HookZoomHit'
   | 'T02_BigHeadlineSlam'
   | 'T03_FocusBoxPush'
@@ -159,7 +159,7 @@ export interface Scene {
   end: number;
   scriptRef?: string;
   assetRef?: string;
-  template: TemplateId;
+  template: LegacyTemplateId;
   focusRegion?: string;
   caption?: string;
   bullets?: string[];
@@ -183,9 +183,9 @@ export interface Storyboard {
       text: string;
       intent: Intent;
       visualTarget: 'whole-image' | 'single-region' | 'multi-region' | 'compare' | 'text-only';
-      recommendedTemplate: TemplateId;
+      recommendedTemplate: LegacyTemplateId;
     }>;
-    primaryTemplates: TemplateId[];
+    primaryTemplates: LegacyTemplateId[];
   };
 }
 
@@ -392,3 +392,104 @@ export interface MotionPlan {
   };
   warnings?: string[];
 }
+
+export type ImageCategory =
+  | 'infographic'
+  | 'landscape'
+  | 'portrait'
+  | 'product'
+  | 'screenshot'
+  | 'poster'
+  | 'storyboard'
+  | 'collage'
+  | 'multi-image'
+  | 'document'
+  | 'unknown';
+
+export type TemplateEffectStyle =
+  | 'clean-zoom'
+  | 'cinematic-depth'
+  | 'tech-scan'
+  | 'card-stack'
+  | 'grid-shuffle'
+  | 'photo-wall'
+  | 'split-compare'
+  | 'parallax'
+  | 'minimal'
+  | 'product-hero'
+  | 'poster-impact';
+
+export type TemplateIntensity = 'low' | 'medium' | 'high';
+
+export type TemplateBackground = 'blur' | 'solid' | 'gradient' | 'none';
+
+export type TemplateFitMode = 'contain' | 'cover';
+
+export interface TemplateAsset {
+  id: string;
+  path: string;
+  width?: number;
+  height?: number;
+  label?: string;
+}
+
+export interface TemplateRenderRequest {
+  version: '1.0';
+  task: {
+    imageCategory: ImageCategory;
+    effectStyle?: TemplateEffectStyle;
+    durationSeconds: number;
+    aspectRatio: '9:16' | '16:9' | '1:1';
+    fps?: number;
+    preferredTemplate?: TemplateIdV2;
+  };
+  assets: TemplateAsset[];
+  text?: {
+    title?: string;
+    subtitle?: string;
+    captions?: string[];
+  };
+  options?: {
+    intensity?: TemplateIntensity;
+    loopable?: boolean;
+    background?: TemplateBackground;
+    fit?: TemplateFitMode;
+    safeMode?: boolean;
+  };
+}
+
+export type TemplateIdV2 =
+  | 'InfographicZoomTemplate'
+  | 'CinematicDepthTemplate'
+  | 'PortraitFocusTemplate'
+  | 'ProductHeroTemplate'
+  | 'ScreenshotScanTemplate'
+  | 'PosterImpactTemplate'
+  | 'StoryboardGridTemplate'
+  | 'PhotoWallTemplate'
+  | 'CardStackTemplate'
+  | 'GridShuffleTemplate'
+  | 'DocumentFocusTemplate'
+  | 'SafeKenBurnsTemplate';
+
+export interface TemplateRenderPlan {
+  version: '1.0';
+  sourceRequestVersion: '1.0';
+  templateId: TemplateIdV2;
+  outputWidth: number;
+  outputHeight: number;
+  fps: number;
+  durationSeconds: number;
+  assets: TemplateAsset[];
+  text?: TemplateRenderRequest['text'];
+  options?: TemplateRenderRequest['options'];
+  warnings?: string[];
+}
+
+export interface TemplateProps {
+  plan: TemplateRenderPlan;
+}
+
+export type TemplateImageCategory = ImageCategory;
+export type TemplateId = TemplateIdV2;
+export type TemplatePlan = TemplateRenderPlan;

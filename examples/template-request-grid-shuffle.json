@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "task": {
+    "imageCategory": "multi-image",
+    "effectStyle": "grid-shuffle",
+    "durationSeconds": 8,
+    "aspectRatio": "16:9",
+    "fps": 60
+  },
+  "assets": [
+    {
+      "id": "photo-1",
+      "path": "examples/demo-photo-1.svg"
+    },
+    {
+      "id": "photo-2",
+      "path": "examples/demo-photo-2.svg"
+    },
+    {
+      "id": "photo-3",
+      "path": "examples/demo-photo-3.svg"
+    },
+    {
+      "id": "photo-4",
+      "path": "examples/demo-photo-4.svg"
+    },
+    {
+      "id": "photo-5",
+      "path": "examples/demo-photo-5.svg"
+    }
+  ],
+  "text": {
+    "title": "Grid Shuffle",
+    "subtitle": "Grid layouts can re-order and settle into a clean finish."
+  },
+  "options": {
+    "intensity": "high",
+    "background": "gradient",
+    "fit": "cover"
+  }
+}

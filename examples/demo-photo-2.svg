@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <rect width="1200" height="1200" fill="#d8efe2"/>
+  <path d="M120 760 C310 620 520 610 680 720 C820 818 980 804 1080 722 V1200 H120 Z" fill="#6ba77d"/>
+  <circle cx="860" cy="260" r="110" fill="#fef3c6"/>
+  <text x="120" y="1030" font-family="Helvetica, Arial, sans-serif" font-size="62" font-weight="700" fill="#295741">Photo 2</text>
+</svg>

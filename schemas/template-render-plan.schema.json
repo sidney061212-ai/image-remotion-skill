@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/template-render-plan.schema.json",
+  "title": "TemplateRenderPlan",
+  "description": "Compiled plan for the template-based rendering flow. This plan records the selected template plus normalized output settings, assets, text, and options.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "sourceRequestVersion",
+    "templateId",
+    "outputWidth",
+    "outputHeight",
+    "fps",
+    "durationSeconds",
+    "assets"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "sourceRequestVersion": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "templateId": {
+      "type": "string",
+      "enum": [
+        "InfographicZoomTemplate",
+        "CinematicDepthTemplate",
+        "PortraitFocusTemplate",
+        "ProductHeroTemplate",
+        "ScreenshotScanTemplate",
+        "PosterImpactTemplate",
+        "StoryboardGridTemplate",
+        "PhotoWallTemplate",
+        "CardStackTemplate",
+        "GridShuffleTemplate",
+        "DocumentFocusTemplate",
+        "SafeKenBurnsTemplate"
+      ]
+    },
+    "outputWidth": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "outputHeight": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "fps": {
+      "type": "integer",
+      "enum": [30, 60]
+    },
+    "durationSeconds": {
+      "type": "number",
+      "minimum": 3,
+      "maximum": 120
+    },
+    "assets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "path"],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "width": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "height": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "label": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "text": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "captions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "options": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "intensity": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        },
+        "loopable": {
+          "type": "boolean"
+        },
+        "background": {
+          "type": "string",
+          "enum": ["blur", "solid", "gradient", "none"]
+        },
+        "fit": {
+          "type": "string",
+          "enum": ["contain", "cover"]
+        },
+        "safeMode": {
+          "type": "boolean"
+        }
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

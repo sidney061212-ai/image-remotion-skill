@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#163a63"/>
+      <stop offset="55%" stop-color="#4f86c6"/>
+      <stop offset="100%" stop-color="#ffb26b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#sky)"/>
+  <circle cx="1450" cy="220" r="90" fill="#fff2c0" opacity="0.92"/>
+  <path d="M0 760 C240 650 380 640 600 720 C840 806 1080 780 1280 690 C1500 590 1710 610 1920 720 V1080 H0 Z" fill="#324e66"/>
+  <path d="M0 820 C260 730 480 760 700 842 C940 930 1210 910 1450 812 C1640 734 1770 736 1920 804 V1080 H0 Z" fill="#243a50"/>
+  <path d="M0 910 C220 840 480 862 710 930 C980 1012 1280 988 1530 906 C1670 860 1800 858 1920 900 V1080 H0 Z" fill="#1a2d3f"/>
+  <text x="120" y="128" font-family="Helvetica, Arial, sans-serif" font-size="54" font-weight="700" fill="#f8fbff">Cinematic Landscape Demo</text>
+  <text x="120" y="184" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#e8f1fb">Template mode example for the landscape category</text>
+</svg>

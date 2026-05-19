@@ -5,7 +5,8 @@ import {copyFile, mkdir, readFile, writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {buildMotionPlanFromAiRequest} from './engine/ai-motion-compiler';
-import type {AiMotionRequest, MotionPlan} from './types';
+import {buildTemplateRenderPlan} from './engine/template-plan-compiler';
+import type {AiMotionRequest, MotionPlan, TemplateAsset, TemplateRenderPlan, TemplateRenderRequest} from './types';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,7 +16,9 @@ const outputsRoot = path.join(projectRoot, 'outputs');
 
 const usage = `Usage:
   image-remotion-skill plan <ai-motion-request.json> <motion-plan.json>
-  image-remotion-skill render <motion-plan.json> <output.mp4>`;
+  image-remotion-skill render <motion-plan.json> <output.mp4>
+  image-remotion-skill template-plan <template-render-request.json> <template-plan.json>
+  image-remotion-skill render-template <template-render-request.json> <output.mp4>`;
 
 const readJson = async <T>(filePath: string): Promise<T> => {
   const content = await readFile(filePath, 'utf8');
@@ -38,49 +41,97 @@ const fileExists = async (filePath: string): Promise<boolean> => {
   }
 };
 
-const resolvePlanImagePath = async (plan: MotionPlan, planPath: string): Promise<{sourcePath: string; remotionPath: string}> => {
-  if (path.isAbsolute(plan.image) && await fileExists(plan.image)) {
-    return {sourcePath: plan.image, remotionPath: ''};
+const isTemplateRenderPlan = (value: unknown): value is TemplateRenderPlan =>
+  Boolean(
+    value &&
+    typeof value === 'object' &&
+    'templateId' in value &&
+    'assets' in value &&
+    'outputWidth' in value &&
+    'outputHeight' in value,
+  );
+
+const resolveAssetPath = async (
+  assetPath: string,
+  relativePath: string,
+): Promise<{sourcePath: string; remotionPath: string}> => {
+  if (path.isAbsolute(assetPath) && await fileExists(assetPath)) {
+    return {sourcePath: assetPath, remotionPath: ''};
   }
 
-  const publicCandidate = path.join(publicRoot, plan.image);
+  const publicCandidate = path.join(publicRoot, assetPath);
   if (await fileExists(publicCandidate)) {
     return {sourcePath: publicCandidate, remotionPath: toPosixRelative(publicRoot, publicCandidate)};
   }
 
-  const planRelativeCandidate = path.resolve(path.dirname(planPath), plan.image);
-  if (await fileExists(planRelativeCandidate)) {
-    return {sourcePath: planRelativeCandidate, remotionPath: ''};
+  const requestRelativeCandidate = path.resolve(path.dirname(relativePath), assetPath);
+  if (await fileExists(requestRelativeCandidate)) {
+    return {sourcePath: requestRelativeCandidate, remotionPath: ''};
   }
 
-  const cwdCandidate = path.resolve(process.cwd(), plan.image);
+  const cwdCandidate = path.resolve(process.cwd(), assetPath);
   if (await fileExists(cwdCandidate)) {
     return {sourcePath: cwdCandidate, remotionPath: ''};
   }
 
-  throw new Error(`Unable to resolve image path '${plan.image}' for MotionPlan render.`);
+  throw new Error(`Unable to resolve image path '${assetPath}' for render.`);
+};
+
+const stageResolvedAsset = async (
+  assetPath: string,
+  relativePath: string,
+): Promise<{sourcePath: string; remotionPath: string}> => {
+  const resolved = await resolveAssetPath(assetPath, relativePath);
+  if (resolved.remotionPath) {
+    return resolved;
+  }
+
+  const ext = path.extname(resolved.sourcePath) || '.png';
+  const baseName = path.basename(resolved.sourcePath, ext).replace(/[^a-zA-Z0-9-_]/g, '-');
+  const digest = createHash('sha1').update(resolved.sourcePath).digest('hex').slice(0, 12);
+  const targetDir = path.join(publicRoot, 'generated');
+  const targetPath = path.join(targetDir, `${baseName}-${digest}${ext}`);
+  await mkdir(targetDir, {recursive: true});
+  await copyFile(resolved.sourcePath, targetPath);
+  return {sourcePath: targetPath, remotionPath: toPosixRelative(publicRoot, targetPath)};
+};
+
+const resolvePlanImagePath = async (plan: MotionPlan, planPath: string): Promise<{sourcePath: string; remotionPath: string}> =>
+  stageResolvedAsset(plan.image, planPath);
+
+const stageTemplatePlanForRender = async (inputPath: string): Promise<TemplateRenderPlan> => {
+  const absoluteInputPath = path.resolve(inputPath);
+  const loaded = await readJson<TemplateRenderPlan | TemplateRenderRequest>(absoluteInputPath);
+  const plan = isTemplateRenderPlan(loaded) ? loaded : buildTemplateRenderPlan(loaded);
+
+  const assets = await Promise.all(
+    plan.assets.map(async (asset): Promise<TemplateAsset> => {
+      const resolved = await stageResolvedAsset(asset.path, absoluteInputPath);
+      return {
+        ...asset,
+        path: resolved.remotionPath,
+      };
+    }),
+  );
+
+  const stagedPlan: TemplateRenderPlan = {
+    ...plan,
+    assets,
+  };
+
+  await mkdir(outputsRoot, {recursive: true});
+  await writeJson(path.join(outputsRoot, 'current-template-plan.json'), stagedPlan);
+  return stagedPlan;
 };
 
 const stagePlanForRender = async (planPath: string): Promise<MotionPlan> => {
   const absolutePlanPath = path.resolve(planPath);
   const plan = await readJson<MotionPlan>(absolutePlanPath);
   const resolved = await resolvePlanImagePath(plan, absolutePlanPath);
-  let remotionImagePath = resolved.remotionPath;
-
-  if (!remotionImagePath) {
-    const ext = path.extname(resolved.sourcePath) || '.png';
-    const baseName = path.basename(resolved.sourcePath, ext).replace(/[^a-zA-Z0-9-_]/g, '-');
-    const digest = createHash('sha1').update(resolved.sourcePath).digest('hex').slice(0, 12);
-    const targetDir = path.join(publicRoot, 'generated');
-    const targetPath = path.join(targetDir, `${baseName}-${digest}${ext}`);
-    await mkdir(targetDir, {recursive: true});
-    await copyFile(resolved.sourcePath, targetPath);
-    remotionImagePath = toPosixRelative(publicRoot, targetPath);
-  }
 
   const stagedPlan: MotionPlan = {
     ...plan,
-    image: remotionImagePath,
+    image: resolved.remotionPath,
   };
 
   await mkdir(outputsRoot, {recursive: true});
@@ -88,7 +139,11 @@ const stagePlanForRender = async (planPath: string): Promise<MotionPlan> => {
   return stagedPlan;
 };
 
-const runRemotionRender = async (plan: MotionPlan, outputPath: string): Promise<void> => {
+const runRemotionRender = async (
+  compositionId: string,
+  props: Record<string, unknown>,
+  outputPath: string,
+): Promise<void> => {
   const remotionBin = path.join(projectRoot, 'node_modules', '.bin', 'remotion');
   const outputAbsolutePath = path.resolve(outputPath);
   await mkdir(path.dirname(outputAbsolutePath), {recursive: true});
@@ -99,9 +154,9 @@ const runRemotionRender = async (plan: MotionPlan, outputPath: string): Promise<
       [
         'render',
         path.join(projectRoot, 'src', 'remotion', 'index.ts'),
-        'MotionPlan',
+        compositionId,
         outputAbsolutePath,
-        `--props=${JSON.stringify({plan})}`,
+        `--props=${JSON.stringify(props)}`,
       ],
       {
         cwd: projectRoot,
@@ -146,7 +201,30 @@ const main = async (): Promise<void> => {
     }
 
     const stagedPlan = await stagePlanForRender(planPath);
-    await runRemotionRender(stagedPlan, outputPath);
+    await runRemotionRender('MotionPlan', {plan: stagedPlan}, outputPath);
+    return;
+  }
+
+  if (command === 'template-plan') {
+    const [requestPath, outputPath] = args;
+    if (!requestPath || !outputPath) {
+      throw new Error(usage);
+    }
+
+    const request = await readJson<TemplateRenderRequest>(path.resolve(requestPath));
+    const plan = buildTemplateRenderPlan(request);
+    await writeJson(path.resolve(outputPath), plan);
+    return;
+  }
+
+  if (command === 'render-template') {
+    const [requestPath, outputPath] = args;
+    if (!requestPath || !outputPath) {
+      throw new Error(usage);
+    }
+
+    const stagedPlan = await stageTemplatePlanForRender(requestPath);
+    await runRemotionRender('TemplateVideo', {plan: stagedPlan}, outputPath);
     return;
   }
 

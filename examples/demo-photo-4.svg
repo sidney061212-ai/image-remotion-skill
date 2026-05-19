@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <rect width="1200" height="1200" fill="#f5e2f1"/>
+  <polygon points="200,890 420,390 650,760 840,470 1030,890" fill="#d57ab2"/>
+  <circle cx="850" cy="260" r="90" fill="#fff6d5"/>
+  <text x="120" y="1030" font-family="Helvetica, Arial, sans-serif" font-size="62" font-weight="700" fill="#7f2e62">Photo 4</text>
+</svg>

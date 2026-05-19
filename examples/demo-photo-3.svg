@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <rect width="1200" height="1200" fill="#d8ddf7"/>
+  <rect x="190" y="210" width="820" height="520" rx="42" fill="#ffffff"/>
+  <circle cx="410" cy="470" r="120" fill="#8ca1ff"/>
+  <rect x="620" y="330" width="240" height="260" rx="28" fill="#cbd7ff"/>
+  <text x="120" y="1030" font-family="Helvetica, Arial, sans-serif" font-size="62" font-weight="700" fill="#3746a5">Photo 3</text>
+</svg>

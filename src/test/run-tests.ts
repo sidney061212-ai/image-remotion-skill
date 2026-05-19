@@ -4,15 +4,18 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {buildMotionPlanFromAiRequest} from '../engine/ai-motion-compiler';
 import {selectMotionRecipe} from '../engine/ai-recipe-selector';
-import type {AiMotionRequest} from '../types';
+import {buildTemplateRenderPlan} from '../engine/template-plan-compiler';
+import {validateTemplateRenderRequest} from '../engine/template-request-validator';
+import {selectTemplate} from '../engine/template-selector';
+import type {AiMotionRequest, TemplateRenderRequest} from '../types';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '..', '..');
 
-const loadExample = async (relativePath: string): Promise<AiMotionRequest> => {
+const loadExample = async <T>(relativePath: string): Promise<T> => {
   const content = await readFile(path.join(projectRoot, relativePath), 'utf8');
-  return JSON.parse(content) as AiMotionRequest;
+  return JSON.parse(content) as T;
 };
 
 const createBaseRequest = (): AiMotionRequest => ({
@@ -64,7 +67,25 @@ const getThrownError = (callback: () => void): Error => {
   throw new Error('Expected function to throw, but it completed successfully.');
 };
 
+const createTemplateRequest = (): TemplateRenderRequest => ({
+  version: '1.0',
+  task: {
+    imageCategory: 'infographic',
+    durationSeconds: 8,
+    aspectRatio: '16:9',
+  },
+  assets: [
+    {
+      id: 'asset-1',
+      path: 'examples/demo-infographic.svg',
+      width: 1080,
+      height: 1920,
+    },
+  ],
+});
+
 const main = async (): Promise<void> => {
+  // Advanced mode tests: AiMotionRequest / MotionPlan remains available for callers that can provide structure.
   const comparisonRequest: AiMotionRequest = {
     ...createBaseRequest(),
     task: {
@@ -177,17 +198,219 @@ const main = async (): Promise<void> => {
   assert.match(preferredRecipeError.message, /preferredRecipe|must be one of/i);
   assert.doesNotMatch(preferredRecipeError.message, /compileRecipe|is not a function|undefined/i);
 
-  const infographicExample = await loadExample('examples/ai-request-infographic.json');
+  const infographicExample = await loadExample<AiMotionRequest>('examples/ai-request-infographic.json');
   const infographicPlan = buildMotionPlanFromAiRequest(infographicExample);
   assert.equal(infographicPlan.version, '2.0');
   assert.ok(infographicPlan.camera.length > 0);
 
-  const storyboardExample = await loadExample('examples/ai-request-storyboard.json');
+  const storyboardExample = await loadExample<AiMotionRequest>('examples/ai-request-storyboard.json');
   const storyboardPlan = buildMotionPlanFromAiRequest(storyboardExample);
   assert.equal(storyboardPlan.version, '2.0');
   assert.ok(storyboardPlan.camera.some((keyframe) => keyframe.target.type === 'region'));
 
-  console.log('All AI motion pipeline tests passed.');
+  // Default template skill tests: TemplateRenderRequest is the recommended AI-facing path.
+  const templateInfographicRequest = createTemplateRequest();
+  assert.equal(selectTemplate(templateInfographicRequest), 'InfographicZoomTemplate');
+  const templateInfographicPlan = buildTemplateRenderPlan(templateInfographicRequest);
+  assert.equal(templateInfographicPlan.templateId, 'InfographicZoomTemplate');
+
+  const templateLandscapeRequest: TemplateRenderRequest = {
+    ...createTemplateRequest(),
+    task: {
+      ...createTemplateRequest().task,
+      imageCategory: 'landscape',
+    },
+    assets: [
+      {
+        id: 'landscape',
+        path: 'examples/demo-landscape.svg',
+        width: 1920,
+        height: 1080,
+      },
+    ],
+  };
+  assert.equal(selectTemplate(templateLandscapeRequest), 'CinematicDepthTemplate');
+  assert.equal(buildTemplateRenderPlan(templateLandscapeRequest).templateId, 'CinematicDepthTemplate');
+
+  const templatePortraitRequest: TemplateRenderRequest = {
+    ...createTemplateRequest(),
+    task: {
+      ...createTemplateRequest().task,
+      imageCategory: 'portrait',
+    },
+    assets: [
+      {
+        id: 'portrait',
+        path: 'examples/demo-portrait.svg',
+        width: 1080,
+        height: 1600,
+      },
+    ],
+  };
+  assert.equal(selectTemplate(templatePortraitRequest), 'PortraitFocusTemplate');
+
+  const templateProductRequest: TemplateRenderRequest = {
+    ...createTemplateRequest(),
+    task: {
+      ...createTemplateRequest().task,
+      imageCategory: 'product',
+    },
+    assets: [
+      {
+        id: 'product',
+        path: 'examples/demo-product.svg',
+        width: 1600,
+        height: 1600,
+      },
+    ],
+  };
+  assert.equal(selectTemplate(templateProductRequest), 'ProductHeroTemplate');
+
+  const templateScreenshotRequest: TemplateRenderRequest = {
+    ...createTemplateRequest(),
+    task: {
+      ...createTemplateRequest().task,
+      imageCategory: 'screenshot',
+    },
+    assets: [
+      {
+        id: 'screenshot',
+        path: 'examples/demo-screenshot.svg',
+        width: 1080,
+        height: 1920,
+      },
+    ],
+  };
+  assert.equal(selectTemplate(templateScreenshotRequest), 'ScreenshotScanTemplate');
+
+  const templatePosterRequest: TemplateRenderRequest = {
+    ...createTemplateRequest(),
+    task: {
+      ...createTemplateRequest().task,
+      imageCategory: 'poster',
+    },
+    assets: [
+      {
+        id: 'poster',
+        path: 'examples/demo-poster.svg',
+        width: 1200,
+        height: 1600,
+      },
+    ],
+  };
+  assert.equal(selectTemplate(templatePosterRequest), 'PosterImpactTemplate');
+
+  const templateMultiImageRequest: TemplateRenderRequest = {
+    ...createTemplateRequest(),
+    task: {
+      ...createTemplateRequest().task,
+      imageCategory: 'multi-image',
+      effectStyle: 'photo-wall',
+    },
+    assets: [
+      {id: 'a', path: 'examples/demo-photo-1.svg'},
+      {id: 'b', path: 'examples/demo-photo-2.svg'},
+      {id: 'c', path: 'examples/demo-photo-3.svg'},
+    ],
+  };
+  assert.equal(selectTemplate(templateMultiImageRequest), 'PhotoWallTemplate');
+
+  const templateCardStackRequest: TemplateRenderRequest = {
+    ...templateMultiImageRequest,
+    task: {
+      ...templateMultiImageRequest.task,
+      effectStyle: 'card-stack',
+    },
+  };
+  assert.equal(selectTemplate(templateCardStackRequest), 'CardStackTemplate');
+
+  const templateGridShuffleRequest: TemplateRenderRequest = {
+    ...templateMultiImageRequest,
+    task: {
+      ...templateMultiImageRequest.task,
+      effectStyle: 'grid-shuffle',
+    },
+  };
+  assert.equal(selectTemplate(templateGridShuffleRequest), 'GridShuffleTemplate');
+
+  const templateStoryboardRequest: TemplateRenderRequest = {
+    ...createTemplateRequest(),
+    task: {
+      ...createTemplateRequest().task,
+      imageCategory: 'storyboard',
+    },
+    assets: [
+      {
+        id: 'storyboard',
+        path: 'examples/demo-storyboard.svg',
+        width: 1920,
+        height: 1080,
+      },
+    ],
+    text: {
+      title: 'Storyboard Grid',
+      captions: ['A', 'B', 'C', 'D'],
+    },
+  };
+  assert.equal(selectTemplate(templateStoryboardRequest), 'StoryboardGridTemplate');
+  assert.equal(buildTemplateRenderPlan(templateStoryboardRequest).templateId, 'StoryboardGridTemplate');
+
+  const templateUnknownRequest: TemplateRenderRequest = {
+    ...createTemplateRequest(),
+    task: {
+      ...createTemplateRequest().task,
+      imageCategory: 'unknown',
+    },
+  };
+  assert.equal(selectTemplate(templateUnknownRequest), 'SafeKenBurnsTemplate');
+  assert.equal(buildTemplateRenderPlan(templateUnknownRequest).templateId, 'SafeKenBurnsTemplate');
+
+  const preferredTemplateRequest: TemplateRenderRequest = {
+    ...createTemplateRequest(),
+    task: {
+      ...createTemplateRequest().task,
+      preferredTemplate: 'DocumentFocusTemplate',
+    },
+  };
+  assert.equal(selectTemplate(preferredTemplateRequest), 'DocumentFocusTemplate');
+  assert.equal(buildTemplateRenderPlan(preferredTemplateRequest).templateId, 'DocumentFocusTemplate');
+
+  const invalidPreferredTemplateRequest = {
+    ...createTemplateRequest(),
+    task: {
+      ...createTemplateRequest().task,
+      preferredTemplate: 'NotARealTemplate',
+    },
+  } as unknown as TemplateRenderRequest;
+  const invalidPreferredTemplateDiagnostics = validateTemplateRenderRequest(invalidPreferredTemplateRequest);
+  assert.ok(invalidPreferredTemplateDiagnostics.some((diagnostic) => /preferredTemplate|must be one of/i.test(diagnostic)));
+  const invalidPreferredTemplateError = getThrownError(() => {
+    buildTemplateRenderPlan(invalidPreferredTemplateRequest);
+  });
+  assert.match(invalidPreferredTemplateError.message, /preferredTemplate|must be one of/i);
+
+  const emptyAssetsRequest: TemplateRenderRequest = {
+    ...createTemplateRequest(),
+    assets: [],
+  };
+  const emptyAssetsError = getThrownError(() => {
+    buildTemplateRenderPlan(emptyAssetsRequest);
+  });
+  assert.match(emptyAssetsError.message, /assets.*at least 1|assets.*at least one/i);
+
+  const templateInfographicExample = await loadExample<TemplateRenderRequest>('examples/template-request-infographic.json');
+  assert.equal(buildTemplateRenderPlan(templateInfographicExample).templateId, 'InfographicZoomTemplate');
+
+  const templateLandscapeExample = await loadExample<TemplateRenderRequest>('examples/template-request-landscape.json');
+  assert.equal(buildTemplateRenderPlan(templateLandscapeExample).templateId, 'CinematicDepthTemplate');
+
+  const templateMultiImageExample = await loadExample<TemplateRenderRequest>('examples/template-request-multi-image.json');
+  const templateMultiImagePlan = buildTemplateRenderPlan(templateMultiImageExample);
+  assert.ok(
+    templateMultiImagePlan.templateId === 'PhotoWallTemplate' || templateMultiImagePlan.templateId === 'CardStackTemplate',
+  );
+
+  console.log('All template and motion pipeline tests passed.');
 };
 
 main().catch((error) => {

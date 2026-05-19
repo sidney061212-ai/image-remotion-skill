@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "task": {
+    "imageCategory": "unknown",
+    "effectStyle": "minimal",
+    "durationSeconds": 8,
+    "aspectRatio": "1:1",
+    "fps": 60
+  },
+  "assets": [
+    {
+      "id": "unknown-demo",
+      "path": "examples/demo-photo-5.svg",
+      "width": 1200,
+      "height": 1200,
+      "label": "Unknown demo"
+    }
+  ],
+  "text": {
+    "title": "Safe Ken Burns",
+    "subtitle": "Fallback template for any uncategorized single-image request."
+  },
+  "options": {
+    "intensity": "low",
+    "background": "blur",
+    "safeMode": true,
+    "fit": "contain"
+  }
+}

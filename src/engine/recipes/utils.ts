@@ -37,9 +37,7 @@ const TEXT_SAFE_ROLES = new Set([
 
 export const clamp = (value: number, min: number, max: number): number => Math.max(min, Math.min(max, value));
 
-export const getOutputSize = (
-  aspectRatio: AiMotionRequest['task']['aspectRatio'],
-): {width: number; height: number} => {
+export const getOutputSize = (aspectRatio: '9:16' | '16:9' | '1:1'): {width: number; height: number} => {
   if (aspectRatio === '16:9') {
     return {width: 1920, height: 1080};
   }

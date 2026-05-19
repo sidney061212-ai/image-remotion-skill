@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4b79ff"/>
+      <stop offset="100%" stop-color="#7d5cff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1600" fill="url(#bg)"/>
+  <circle cx="910" cy="270" r="150" fill="#fff2c5" opacity="0.9"/>
+  <rect x="130" y="210" width="940" height="1180" rx="42" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.28)" stroke-width="4"/>
+  <text x="180" y="440" font-family="Helvetica, Arial, sans-serif" font-size="140" font-weight="800" fill="#ffffff">POSTER</text>
+  <text x="180" y="570" font-family="Helvetica, Arial, sans-serif" font-size="72" font-weight="700" fill="#f1f6ff">Impact Template Demo</text>
+  <rect x="180" y="680" width="480" height="18" rx="9" fill="#ffe3a3"/>
+  <text x="180" y="850" font-family="Helvetica, Arial, sans-serif" font-size="44" fill="#eff5ff">Fast punch-in, breathing zoom, and clean title slam.</text>
+  <text x="180" y="930" font-family="Helvetica, Arial, sans-serif" font-size="44" fill="#eff5ff">No OCR. No regions. Just category + style.</text>
+</svg>

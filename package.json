@@ -1,7 +1,7 @@
 {
   "name": "image-remotion-skill",
   "version": "0.1.0",
-  "description": "AI-facing image motion skill that compiles structured image understanding into deterministic Remotion MotionPlans and MP4 renders.",
+  "description": "AI-facing Remotion template skill for turning categorized images into deterministic MP4 renders, with MotionPlan available as an advanced mode.",
   "license": "MIT",
   "type": "module",
   "main": "dist/index.js",
@@ -24,6 +24,8 @@
     "dev": "remotion studio src/remotion/index.ts",
     "plan:ai": "tsx src/cli.ts plan",
     "render:motion": "tsx src/cli.ts render",
+    "template:plan": "tsx src/cli.ts template-plan",
+    "template:render": "tsx src/cli.ts render-template",
     "render:example": "bash ./render.sh examples/example-infogram-plan.json out/video.mp4",
     "lint": "tsc --noEmit"
   },

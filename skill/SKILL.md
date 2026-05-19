@@ -1,28 +1,57 @@
 ---
 name: image-remotion-skill
-description: Compile structured image understanding into a deterministic Remotion MotionPlan and render MP4. This skill is designed for AI-to-AI invocation, not manual editing.
+description: Render AI-facing image videos with Remotion templates. Prefer coarse image categorization over precise structure markup. Advanced MotionPlan mode remains available when structure is known.
 allowed-tools: Read, Grep, Bash, Edit
 ---
 
-# Image Motion Skill
+# Image Remotion Skill
 
 ## What this skill is for
 
-Use this skill when an upstream AI already has:
+Use this skill when an upstream AI has one or more images and wants to turn them into a short Remotion video.
 
-- an image path
-- the image width and height
-- the image kind
-- detected regions in pixel coordinates
-- reading order
-- a motion goal
+The recommended mode is template-first:
 
-This skill then:
+- AI provides image paths
+- AI provides rough image category
+- AI optionally provides effect style
+- AI optionally provides title / subtitle / captions
+- skill selects a Remotion template and renders MP4
 
-1. validates the request
-2. selects a motion recipe
-3. compiles a deterministic `MotionPlan`
-4. renders MP4 with Remotion
+## Recommended input
+
+Always prefer generating a `TemplateRenderRequest` unless the upstream AI truly has reliable region annotations.
+
+Recommended categories:
+
+- `infographic`
+- `landscape`
+- `portrait`
+- `product`
+- `screenshot`
+- `poster`
+- `storyboard`
+- `collage`
+- `multi-image`
+- `unknown`
+
+Important rules:
+
+- AI does **not** need to provide `regions`
+- AI does **not** need to provide `readingOrder`
+- AI should focus on coarse classification, not precise camera planning
+- `effectStyle` is optional
+- `width` / `height` are helpful but not mandatory in template mode
+
+## Advanced mode
+
+Use `AiMotionRequest` only when the upstream AI already knows:
+
+- `visualStructure.regions`
+- `readingOrder`
+- `primaryRegionId`
+
+This is the advanced MotionPlan path, not the default recommendation.
 
 ## What this skill is not for
 
@@ -31,39 +60,26 @@ Do not use this skill as:
 - a manual editing UI
 - a human review panel
 - an OCR system
-- a vision understanding model
+- a full vision understanding model
 - a free-form script-to-camera generator
 
-The upstream AI must do the image understanding first.
+## Expected workflows
 
-## Preferred input
+Recommended:
 
-Always prefer generating an `AiMotionRequest`.
+```text
+AI receives or generates image(s)
+-> AI classifies image category
+-> AI writes template-render-request.json
+-> skill selects template
+-> skill renders mp4
+```
 
-Do **not** ask the upstream AI to write camera keyframes directly unless it is very sure and intentionally bypassing the compiler.
-
-Important rules:
-
-- `visualStructure.regions` coordinates must be **source-image pixel coordinates**
-- `readingOrder` must reflect how the image should be watched
-- `primaryRegionId` should be provided when there is a final focus area
-- `preferredRecipe` is optional and should only be set when the upstream AI is confident
-
-## Recommended goals
-
-- Information graphic: `animate-infographic`
-- Storyboard / comic / multi-panel image: `animate-storyboard`
-- Screenshot / app capture: `animate-screenshot`
-- Poster / product visual: `animate-poster`
-- Comparison image: `animate-comparison`
-- Dense document or slide screenshot: `animate-document`
-- Normal photo: `animate-photo`
-
-## Expected workflow
+Advanced:
 
 ```text
 AI receives or generates image
--> AI analyzes structure
+-> AI annotates structure
 -> AI writes ai-motion-request.json
 -> skill compiles motion-plan.json
 -> skill renders mp4
@@ -71,34 +87,39 @@ AI receives or generates image
 
 ## Core files
 
+Template-first path:
+
+- Request schema: `schemas/template-render-request.schema.json`
+- Plan schema: `schemas/template-render-plan.schema.json`
+- Selector: `src/engine/template-selector.ts`
+- Plan builder: `src/engine/template-plan-builder.ts`
+- Templates: `src/templates/`
+- Composition: `src/remotion/TemplateRoot.tsx`
+
+Advanced MotionPlan path:
+
 - Request schema: `schemas/ai-motion-request.schema.json`
 - MotionPlan schema: `schemas/motion-plan.schema.json`
 - Compiler entry: `src/engine/ai-motion-compiler.ts`
 - Renderer: `src/remotion/MotionPlanRenderer.tsx`
 - Composition: `src/remotion/MotionPlanRoot.tsx`
-- CLI: `src/cli.ts`
 
 ## Commands
 
-Compile:
+Template-first:
+
+```bash
+npm run template:plan -- <template-render-request.json> <template-plan.json>
+npm run template:render -- <template-render-request.json> <output.mp4>
+```
+
+Advanced MotionPlan:
 
 ```bash
 npm run plan:ai -- <ai-motion-request.json> <motion-plan.json>
-```
-
-Render:
-
-```bash
 npm run render:motion -- <motion-plan.json> <output.mp4>
 ```
 
 ## Legacy note
 
-Older `Storyboard` / `T01-T16` template flows still exist for compatibility, but they are `legacy/experimental`.
-
-Prefer the new mainline based on:
-
-- `AiMotionRequest`
-- `MotionPlan`
-- recipe compilers
-- `MotionPlanRenderer`
+Older `Storyboard` / `T01-T16` flows still exist for compatibility, but they are `legacy/experimental`.

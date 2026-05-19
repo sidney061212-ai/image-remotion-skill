@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <rect width="1080" height="1920" fill="#eef4fb"/>
+  <rect x="60" y="60" width="960" height="1800" rx="34" fill="#ffffff" stroke="#d4e0ef" stroke-width="4"/>
+  <rect x="60" y="60" width="960" height="120" rx="34" fill="#0f1f34"/>
+  <circle cx="132" cy="120" r="14" fill="#ff6b6b"/>
+  <circle cx="176" cy="120" r="14" fill="#ffd166"/>
+  <circle cx="220" cy="120" r="14" fill="#4cd964"/>
+  <text x="540" y="128" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#f8fbff" text-anchor="middle">Dashboard Settings</text>
+  <rect x="120" y="230" width="840" height="180" rx="24" fill="#edf5ff"/>
+  <text x="160" y="305" font-family="Helvetica, Arial, sans-serif" font-size="38" font-weight="700" fill="#18314f">Workspace Overview</text>
+  <text x="160" y="360" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#536b86">Current status, sync state, and quick actions</text>
+  <g fill="#ffffff" stroke="#d9e5f2" stroke-width="3">
+    <rect x="120" y="470" width="840" height="180" rx="24"/>
+    <rect x="120" y="690" width="840" height="180" rx="24"/>
+    <rect x="120" y="910" width="840" height="180" rx="24"/>
+    <rect x="120" y="1130" width="840" height="220" rx="24"/>
+    <rect x="120" y="1390" width="840" height="300" rx="24"/>
+  </g>
+  <text x="160" y="570" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#1d3149">Notifications</text>
+  <text x="160" y="790" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#1d3149">Automation rules</text>
+  <text x="160" y="1010" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#1d3149">Billing and usage</text>
+  <text x="160" y="1230" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#1d3149">Critical settings</text>
+  <text x="160" y="1490" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#1d3149">Advanced configuration</text>
+</svg>

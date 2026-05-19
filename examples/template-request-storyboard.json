@@ -1,0 +1,34 @@
+{
+  "version": "1.0",
+  "task": {
+    "imageCategory": "storyboard",
+    "effectStyle": "clean-zoom",
+    "durationSeconds": 10,
+    "aspectRatio": "16:9",
+    "fps": 60
+  },
+  "assets": [
+    {
+      "id": "storyboard-demo",
+      "path": "examples/demo-storyboard.svg",
+      "width": 1920,
+      "height": 1080,
+      "label": "Storyboard demo sheet"
+    }
+  ],
+  "text": {
+    "title": "Storyboard Grid",
+    "subtitle": "Template mode can infer a safe panel path without explicit panel annotations.",
+    "captions": [
+      "Panel 1 establishes the scene.",
+      "Panel 2 captures the reaction.",
+      "Panel 3 carries the action.",
+      "Panel 4 lands the ending."
+    ]
+  },
+  "options": {
+    "intensity": "medium",
+    "background": "gradient",
+    "fit": "cover"
+  }
+}

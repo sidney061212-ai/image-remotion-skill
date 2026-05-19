@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1022"/>
+      <stop offset="100%" stop-color="#0f2742"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <rect x="60" y="80" width="960" height="240" rx="28" fill="#102f52" stroke="#4dd0e1" stroke-width="4"/>
+  <text x="540" y="178" font-family="Helvetica, Arial, sans-serif" font-size="58" font-weight="700" fill="#f2f7ff" text-anchor="middle">AI Motion Template Skill</text>
+  <text x="540" y="248" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#d4e9ff" text-anchor="middle">Infographic demo for template mode</text>
+
+  <rect x="70" y="420" width="450" height="520" rx="24" fill="#13385f" stroke="#52e0b8" stroke-width="4"/>
+  <text x="110" y="500" font-family="Helvetica, Arial, sans-serif" font-size="38" font-weight="700" fill="#ecfff8">Module A</text>
+  <text x="110" y="566" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#d7fff1">Template selection</text>
+  <text x="110" y="620" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#d7fff1">Safe defaults</text>
+  <text x="110" y="674" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#d7fff1">Deterministic output</text>
+  <text x="110" y="770" font-family="Helvetica, Arial, sans-serif" font-size="92" font-weight="700" fill="#86ffd8">72%</text>
+
+  <rect x="560" y="420" width="450" height="520" rx="24" fill="#173f68" stroke="#f7d45e" stroke-width="4"/>
+  <text x="600" y="500" font-family="Helvetica, Arial, sans-serif" font-size="38" font-weight="700" fill="#fff8dc">Module B</text>
+  <text x="600" y="566" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#fff3c9">Simple AI contract</text>
+  <text x="600" y="620" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#fff3c9">Render to MP4</text>
+  <text x="600" y="674" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#fff3c9">Template-first</text>
+  <text x="600" y="770" font-family="Helvetica, Arial, sans-serif" font-size="92" font-weight="700" fill="#ffe37d">2.4x</text>
+
+  <rect x="60" y="1060" width="960" height="700" rx="28" fill="#0f3358" stroke="#8cb8ff" stroke-width="4"/>
+  <text x="540" y="1160" font-family="Helvetica, Arial, sans-serif" font-size="44" font-weight="700" fill="#eaf2ff" text-anchor="middle">Conclusion</text>
+  <text x="140" y="1260" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#d7e6ff">• Template mode does not require regions</text>
+  <text x="140" y="1338" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#d7e6ff">• MotionPlan remains available as an advanced mode</text>
+  <text x="140" y="1416" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#d7e6ff">• Upstream AI only needs rough image categorization</text>
+  <text x="140" y="1550" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#9fc4ff">This example is stored in examples/ for AI-facing request samples.</text>
+</svg>
