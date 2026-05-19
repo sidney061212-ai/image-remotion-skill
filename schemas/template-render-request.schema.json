@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/template-render-request.schema.json",
+  "title": "TemplateRenderRequest",
+  "description": "AI-facing request schema for the default Remotion template flow. The caller should provide only coarse image categorization, assets, timing, and optional text.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "task", "assets"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Schema version for template rendering. Must be exactly '1.0'."
+    },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["imageCategory", "durationSeconds", "aspectRatio"],
+      "properties": {
+        "imageCategory": {
+          "type": "string",
+          "enum": [
+            "infographic",
+            "landscape",
+            "photo",
+            "portrait",
+            "product",
+            "screenshot",
+            "poster",
+            "storyboard",
+            "collage",
+            "multi-image",
+            "document",
+            "unknown"
+          ],
+          "description": "Coarse image category chosen by the upstream AI. This is the main signal used to select a Remotion template."
+        },
+        "effectStyle": {
+          "type": "string",
+          "enum": [
+            "clean-zoom",
+            "cinematic-depth",
+            "tech-scan",
+            "card-stack",
+            "grid-shuffle",
+            "photo-wall",
+            "split-compare",
+            "parallax",
+            "minimal",
+            "product-hero",
+            "poster-impact"
+          ],
+          "description": "Optional style hint that can bias the template selector. This is a high-level choice, not a camera-keyframe input."
+        },
+        "durationSeconds": {
+          "type": "number",
+          "minimum": 3,
+          "maximum": 120,
+          "description": "Requested output duration in seconds. Must stay between 3 and 120 seconds."
+        },
+        "aspectRatio": {
+          "type": "string",
+          "enum": ["9:16", "16:9", "1:1"],
+          "description": "Requested output aspect ratio."
+        },
+        "fps": {
+          "type": "integer",
+          "enum": [30, 60],
+          "default": 60,
+          "description": "Optional output frame rate. Defaults to 60. Use 30 only when explicitly preferred."
+        },
+        "preferredTemplate": {
+          "type": "string",
+          "enum": [
+            "InfographicZoomTemplate",
+            "CinematicDepthTemplate",
+            "PortraitFocusTemplate",
+            "ProductHeroTemplate",
+            "ScreenshotScanTemplate",
+            "PosterImpactTemplate",
+            "StoryboardGridTemplate",
+            "PhotoWallTemplate",
+            "CardStackTemplate",
+            "GridShuffleTemplate",
+            "DocumentFocusTemplate",
+            "SafeKenBurnsTemplate"
+          ],
+          "description": "Optional direct template override. Only provide this when the upstream AI is confident about the exact template."
+        }
+      }
+    },
+    "assets": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Image assets consumed by the template renderer. At least one asset is required. Multi-image or collage requests should usually provide at least two assets.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "path"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Stable asset identifier."
+          },
+          "path": {
+            "type": "string",
+            "description": "Path to the image file. This may be a project-relative path, absolute path, or already-public path."
+          },
+          "width": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Optional source image width in pixels."
+          },
+          "height": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Optional source image height in pixels."
+          },
+          "label": {
+            "type": "string",
+            "description": "Optional human-readable label for debugging or text overlays."
+          }
+        }
+      }
+    },
+    "text": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Optional plain text content. The skill does not invent text on its own.",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Optional title."
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Optional subtitle."
+        },
+        "captions": {
+          "type": "array",
+          "description": "Optional caption list for templates that support additional callouts.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "options": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Optional rendering hints for the template renderer.",
+      "properties": {
+        "intensity": {
+          "type": "string",
+          "enum": ["low", "medium", "high"],
+          "description": "Optional animation intensity hint."
+        },
+        "loopable": {
+          "type": "boolean",
+          "description": "When true, prefer motions that can loop more naturally."
+        },
+        "background": {
+          "type": "string",
+          "enum": ["blur", "solid", "gradient", "none"],
+          "description": "Optional background treatment hint."
+        },
+        "fit": {
+          "type": "string",
+          "enum": ["contain", "cover"],
+          "description": "Optional image fit hint. Use contain when the full image should be preserved, or cover when a fuller frame is preferred."
+        },
+        "safeMode": {
+          "type": "boolean",
+          "description": "When true, prefer conservative motions and safer template behaviors."
+        },
+        "visualTreatment": {
+          "type": "string",
+          "enum": ["default", "debug"],
+          "description": "Optional visual treatment. Use debug only when focus or panel boundaries should be displayed."
+        },
+        "debugOverlay": {
+          "type": "boolean",
+          "description": "When true, templates may show debug-only focus frames or panel boundaries."
+        }
+      }
+    }
+  }
+}

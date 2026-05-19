@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="phone" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#17223d"/>
+      <stop offset="100%" stop-color="#060b18"/>
+    </linearGradient>
+    <linearGradient id="app" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7fbff"/>
+      <stop offset="100%" stop-color="#e7f0fa"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="20" stdDeviation="20" flood-color="#07111f" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <rect width="1080" height="1920" fill="#dfeeff"/>
+  <rect x="160" y="70" width="760" height="1780" rx="90" fill="url(#phone)" filter="url(#shadow)"/>
+  <rect x="202" y="142" width="676" height="1638" rx="58" fill="url(#app)"/>
+  <rect x="420" y="104" width="240" height="32" rx="16" fill="#050a15"/>
+  <rect x="202" y="142" width="676" height="166" rx="58" fill="#123b63"/>
+  <text x="248" y="230" font-family="Helvetica, Arial, sans-serif" font-size="38" font-weight="800" fill="#ffffff">Dashboard</text>
+  <circle cx="808" cy="224" r="34" fill="#76e5c5"/>
+  <rect x="248" y="270" width="210" height="20" rx="10" fill="#9ed8ff" opacity="0.72"/>
+  <rect x="248" y="352" width="584" height="172" rx="30" fill="#ffffff" filter="url(#shadow)"/>
+  <text x="292" y="414" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="800" fill="#14314d">Today</text>
+  <rect x="292" y="454" width="170" height="30" rx="15" fill="#76e5c5"/>
+  <rect x="500" y="454" width="260" height="30" rx="15" fill="#bed6ea"/>
+
+  <rect x="248" y="570" width="584" height="340" rx="30" fill="#ffffff" filter="url(#shadow)"/>
+  <text x="292" y="632" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="800" fill="#14314d">Messages</text>
+  <g>
+    <circle cx="314" cy="704" r="30" fill="#6db8ff"/><rect x="366" y="678" width="344" height="32" rx="16" fill="#d6e8f6"/><rect x="366" y="724" width="238" height="26" rx="13" fill="#edf4fb"/>
+    <circle cx="314" cy="806" r="30" fill="#ffb85c"/><rect x="366" y="780" width="392" height="32" rx="16" fill="#d6e8f6"/><rect x="366" y="826" width="286" height="26" rx="13" fill="#edf4fb"/>
+  </g>
+
+  <rect x="248" y="958" width="584" height="440" rx="30" fill="#ffffff" filter="url(#shadow)"/>
+  <text x="292" y="1020" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="800" fill="#14314d">Activity Feed</text>
+  <rect x="292" y="1072" width="496" height="68" rx="22" fill="#edf5fb"/>
+  <circle cx="326" cy="1106" r="14" fill="#76e5c5"/>
+  <rect x="364" y="1094" width="220" height="24" rx="12" fill="#b9d6ea"/>
+  <rect x="292" y="1172" width="496" height="68" rx="22" fill="#edf5fb"/>
+  <circle cx="326" cy="1206" r="14" fill="#ffb85c"/>
+  <rect x="364" y="1194" width="286" height="24" rx="12" fill="#b9d6ea"/>
+  <rect x="292" y="1272" width="496" height="68" rx="22" fill="#edf5fb"/>
+  <circle cx="326" cy="1306" r="14" fill="#6db8ff"/>
+  <rect x="364" y="1294" width="252" height="24" rx="12" fill="#b9d6ea"/>
+  <rect x="292" y="1428" width="584" height="230" rx="30" fill="#143b62"/>
+  <text x="336" y="1510" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="800" fill="#ffffff">Web block</text>
+  <rect x="336" y="1550" width="390" height="28" rx="14" fill="#9ed8ff"/>
+  <rect x="336" y="1598" width="290" height="24" rx="12" fill="#c9e9ff"/>
+  <rect x="202" y="1682" width="676" height="98" rx="0 0 58 58" fill="#ffffff" opacity="0.96"/>
+  <circle cx="338" cy="1732" r="22" fill="#123b63"/>
+  <circle cx="540" cy="1732" r="22" fill="#9bb4cc"/>
+  <circle cx="742" cy="1732" r="22" fill="#9bb4cc"/>
+</svg>

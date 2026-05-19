@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10091f"/>
+      <stop offset="45%" stop-color="#4b1b58"/>
+      <stop offset="100%" stop-color="#ff7a45"/>
+    </linearGradient>
+    <radialGradient id="burst" cx="50%" cy="40%" r="62%">
+      <stop offset="0%" stop-color="#fff2a8" stop-opacity="0.72"/>
+      <stop offset="42%" stop-color="#ff8a45" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#12091f" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="1600" fill="url(#bg)"/>
+  <rect width="1200" height="1600" fill="url(#burst)"/>
+  <g opacity="0.16" stroke="#fff2a8" stroke-width="3">
+    <path d="M120 402 L1080 402"/>
+    <path d="M120 980 L1080 980"/>
+    <path d="M232 300 L968 1180"/>
+    <path d="M968 300 L232 1180"/>
+  </g>
+  <circle cx="600" cy="690" r="280" fill="#fff6ce" opacity="0.18"/>
+  <path d="M600 370 L736 642 L1036 686 L818 898 L870 1198 L600 1056 L330 1198 L382 898 L164 686 L464 642 Z" fill="#ffe66d"/>
+  <path d="M600 466 L700 668 L922 700 L760 858 L800 1078 L600 974 L400 1078 L440 858 L278 700 L500 668 Z" fill="#ff4d6d"/>
+  <text x="600" y="204" font-family="Helvetica, Arial, sans-serif" font-size="66" font-weight="900" fill="#ffffff" text-anchor="middle">SUMMER LAUNCH</text>
+  <text x="600" y="292" font-family="Helvetica, Arial, sans-serif" font-size="132" font-weight="900" fill="#fff2a8" text-anchor="middle">2026</text>
+  <rect x="220" y="1190" width="760" height="118" rx="59" fill="#ffffff" opacity="0.9"/>
+  <text x="600" y="1264" font-family="Helvetica, Arial, sans-serif" font-size="46" font-weight="900" fill="#3b1348" text-anchor="middle">JUNE 18 - ONLINE</text>
+  <rect x="354" y="1084" width="492" height="72" rx="36" fill="#12091f" opacity="0.72"/>
+  <text x="600" y="1132" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="900" fill="#fff2a8" text-anchor="middle">LIVE TEMPLATE SHOWCASE</text>
+  <circle cx="236" cy="1038" r="28" fill="#fff2a8" opacity="0.84"/>
+  <circle cx="964" cy="1038" r="28" fill="#fff2a8" opacity="0.84"/>
+  <text x="600" y="1372" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#fff7db" text-anchor="middle">PosterImpactTemplate test asset</text>
+  <text x="600" y="1430" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#ffd6bd" text-anchor="middle">Clean punch-in, title slam, final hold</text>
+</svg>

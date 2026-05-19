@@ -1,7 +1,7 @@
 {
   "name": "image-remotion-skill",
   "version": "0.1.0",
-  "description": "Open-source image-to-storyboard skill and fixed Remotion template kit for short-form videos.",
+  "description": "AI-facing Remotion template skill for turning categorized images into deterministic MP4 renders, with MotionPlan available as an advanced mode.",
   "license": "MIT",
   "type": "module",
   "main": "dist/index.js",
@@ -18,9 +18,14 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "build": "tsc -p tsconfig.json",
+    "test": "tsx src/test/run-tests.ts",
     "prepare": "npm run build",
     "prepack": "npm run build",
     "dev": "remotion studio src/remotion/index.ts",
+    "plan:ai": "tsx src/cli.ts plan",
+    "render:motion": "tsx src/cli.ts render",
+    "template:plan": "tsx src/cli.ts template-plan",
+    "template:render": "tsx src/cli.ts render-template",
     "render:example": "bash ./render.sh examples/example-infogram-plan.json out/video.mp4",
     "lint": "tsc --noEmit"
   },
@@ -38,12 +43,14 @@
   },
   "dependencies": {
     "@remotion/cli": "^4.0.452",
+    "ajv": "^8.17.1",
     "remotion": "^4.0.340"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "tsx": "^4.20.6",
     "typescript": "^5.8.3"
   }
 }

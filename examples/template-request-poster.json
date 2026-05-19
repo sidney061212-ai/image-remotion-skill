@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "task": {
+    "imageCategory": "poster",
+    "effectStyle": "poster-impact",
+    "durationSeconds": 7,
+    "aspectRatio": "9:16",
+    "fps": 60
+  },
+  "assets": [
+    {
+      "id": "poster-demo",
+      "path": "examples/demo-poster.svg",
+      "width": 1200,
+      "height": 1600,
+      "label": "Poster demo"
+    }
+  ],
+  "text": {
+    "title": "Poster Impact",
+    "subtitle": "Clean punch-in and hold for posters, covers, and promo art."
+  },
+  "options": {
+    "intensity": "high",
+    "background": "gradient",
+    "fit": "cover"
+  }
+}

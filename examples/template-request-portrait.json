@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "task": {
+    "imageCategory": "portrait",
+    "effectStyle": "minimal",
+    "durationSeconds": 8,
+    "aspectRatio": "9:16",
+    "fps": 60
+  },
+  "assets": [
+    {
+      "id": "portrait-demo",
+      "path": "examples/demo-portrait.svg",
+      "width": 1080,
+      "height": 1600,
+      "label": "Portrait demo"
+    }
+  ],
+  "text": {
+    "title": "Portrait Focus",
+    "subtitle": "Portrait images keep a centered, gentle push-in."
+  },
+  "options": {
+    "intensity": "low",
+    "background": "blur",
+    "fit": "contain"
+  }
+}

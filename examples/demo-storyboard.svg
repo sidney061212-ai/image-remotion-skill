@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#223b55"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#050912" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <path d="M56 154 H1864" stroke="#ffffff" stroke-width="3" opacity="0.16"/>
+  <text x="90" y="86" font-family="Helvetica, Arial, sans-serif" font-size="48" font-weight="900" fill="#f7fbff">2x2 Storyboard Demo</text>
+  <text x="90" y="124" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#bfd5ea">Default panel path: top-left, top-right, bottom-left, bottom-right</text>
+
+  <g filter="url(#shadow)">
+    <rect x="86" y="176" width="820" height="360" rx="28" fill="#f8fbff"/>
+    <rect x="120" y="218" width="752" height="250" rx="22" fill="#a9d6ff"/>
+    <circle cx="246" cy="306" r="62" fill="#ffe083"/>
+    <path d="M652 250 C704 220 770 220 824 252" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round" opacity="0.72"/>
+    <path d="M120 468 L330 332 L478 430 L604 350 L872 468 Z" fill="#244c69"/>
+    <text x="128" y="514" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="800" fill="#17233a">1. Establishing shot</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="1014" y="176" width="820" height="360" rx="28" fill="#f8fbff"/>
+    <rect x="1048" y="218" width="752" height="250" rx="22" fill="#f6d7c8"/>
+    <circle cx="1260" cy="348" r="90" fill="#f2b08d"/>
+    <path d="M1200 324 C1204 232 1288 198 1348 246 C1400 288 1392 390 1322 432 C1280 388 1240 382 1200 324 Z" transform="translate(0 0)" fill="#33233b"/>
+    <rect x="1440" y="286" width="246" height="36" rx="18" fill="#8a4e6a"/>
+    <rect x="1440" y="350" width="180" height="28" rx="14" fill="#b7738d"/>
+    <path d="M1410 408 C1480 438 1588 438 1660 408" fill="none" stroke="#8a4e6a" stroke-width="10" stroke-linecap="round"/>
+    <text x="1056" y="514" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="800" fill="#17233a">2. Reaction close-up</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="86" y="604" width="820" height="360" rx="28" fill="#f8fbff"/>
+    <rect x="120" y="646" width="752" height="250" rx="22" fill="#c9f0d2"/>
+    <path d="M230 846 L330 704 L420 798 L510 676 L650 846 Z" fill="#28845f"/>
+    <path d="M666 716 L806 742 L694 820 Z" fill="#ff6b6b"/>
+    <line x1="612" y1="734" x2="744" y2="800" stroke="#143b3b" stroke-width="14" stroke-linecap="round"/>
+    <path d="M716 692 L816 632 L792 748 Z" fill="#fff6b6" opacity="0.72"/>
+    <text x="128" y="942" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="800" fill="#17233a">3. Action beat</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="1014" y="604" width="820" height="360" rx="28" fill="#f8fbff"/>
+    <rect x="1048" y="646" width="752" height="250" rx="22" fill="#d9ccff"/>
+    <rect x="1184" y="718" width="480" height="108" rx="32" fill="#563b8b"/>
+    <text x="1424" y="786" font-family="Helvetica, Arial, sans-serif" font-size="46" font-weight="900" fill="#ffffff" text-anchor="middle">THE END</text>
+    <circle cx="1160" cy="698" r="18" fill="#ffe083"/>
+    <circle cx="1690" cy="842" r="18" fill="#ffe083"/>
+    <path d="M1134 878 C1268 826 1540 828 1698 878" fill="none" stroke="#8f7cff" stroke-width="18" stroke-linecap="round"/>
+    <text x="1056" y="942" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="800" fill="#17233a">4. Ending hold</text>
+  </g>
+</svg>

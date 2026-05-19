@@ -2,6 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.com/schemas/input.schema.json",
   "title": "TikTokStoryboardInput",
+  "description": "Legacy / experimental input schema for the older script-driven T01-T16 storyboard pipeline. New AI-facing integrations should prefer ai-motion-request.schema.json instead.",
   "type": "object",
   "required": ["project", "script", "assets"],
   "properties": {

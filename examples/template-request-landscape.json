@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "task": {
+    "imageCategory": "landscape",
+    "effectStyle": "cinematic-depth",
+    "durationSeconds": 8,
+    "aspectRatio": "16:9",
+    "fps": 60
+  },
+  "assets": [
+    {
+      "id": "landscape-demo",
+      "path": "examples/demo-landscape.svg",
+      "width": 1920,
+      "height": 1080,
+      "label": "Landscape demo"
+    }
+  ],
+  "text": {
+    "title": "Cinematic Depth",
+    "subtitle": "Single landscape images get a blur-backed, slow-push template."
+  },
+  "options": {
+    "intensity": "medium",
+    "background": "blur",
+    "fit": "cover"
+  }
+}

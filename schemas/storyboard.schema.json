@@ -2,6 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.com/schemas/storyboard.schema.json",
   "title": "TikTokStoryboardOutput",
+  "description": "Legacy / experimental storyboard output schema for the older T01-T16 template system. New AI-facing motion workflows should prefer motion-plan.schema.json instead.",
   "type": "object",
   "required": ["videoMeta", "scenes"],
   "properties": {

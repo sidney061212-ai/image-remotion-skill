@@ -1,0 +1,66 @@
+{
+  "version": "1.0",
+  "task": {
+    "goal": "animate-comparison",
+    "platform": "generic",
+    "durationSeconds": 8,
+    "aspectRatio": "16:9",
+    "style": "minimal"
+  },
+  "asset": {
+    "id": "comparison-demo",
+    "path": "examples/demo-infographic.svg",
+    "width": 1080,
+    "height": 1920,
+    "kind": "comparison",
+    "description": "A left-versus-right comparison card."
+  },
+  "visualStructure": {
+    "layout": "comparison-split",
+    "regions": [
+      {
+        "id": "left-side",
+        "role": "comparison-left",
+        "label": "Before",
+        "x": 60,
+        "y": 240,
+        "w": 430,
+        "h": 1120,
+        "importance": 0.92,
+        "order": 1
+      },
+      {
+        "id": "right-side",
+        "role": "comparison-right",
+        "label": "After",
+        "x": 590,
+        "y": 240,
+        "w": 430,
+        "h": 1120,
+        "importance": 0.94,
+        "order": 2
+      }
+    ],
+    "readingOrder": ["left-side", "right-side"],
+    "primaryRegionId": "right-side"
+  },
+  "script": {
+    "captions": [
+      {
+        "text": "先看左侧基线状态。",
+        "attachToRegionId": "left-side"
+      },
+      {
+        "text": "再看右侧改进后的结果。",
+        "attachToRegionId": "right-side"
+      }
+    ]
+  },
+  "constraints": {
+    "avoidCroppingText": true,
+    "allowWhipPan": true,
+    "allowBlur": true,
+    "maxZoom": 1.9,
+    "minHoldSeconds": 0.9
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "version": "1.0",
+  "task": {
+    "imageCategory": "screenshot",
+    "effectStyle": "tech-scan",
+    "durationSeconds": 10,
+    "aspectRatio": "9:16",
+    "fps": 60
+  },
+  "assets": [
+    {
+      "id": "screenshot-demo",
+      "path": "examples/demo-screenshot.svg",
+      "width": 1080,
+      "height": 1920,
+      "label": "Dashboard screenshot"
+    }
+  ],
+  "text": {
+    "title": "Product Walkthrough",
+    "subtitle": "Screenshot template uses a slow vertical scan inside a framed canvas.",
+    "captions": [
+      "No OCR required.",
+      "Optional text can still be layered on top."
+    ]
+  },
+  "options": {
+    "intensity": "low",
+    "background": "solid",
+    "fit": "contain"
+  }
+}

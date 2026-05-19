@@ -1,0 +1,52 @@
+{
+  "version": "1.0",
+  "task": {
+    "imageCategory": "multi-image",
+    "effectStyle": "photo-wall",
+    "durationSeconds": 9,
+    "aspectRatio": "16:9",
+    "fps": 60
+  },
+  "assets": [
+    {
+      "id": "photo-1",
+      "path": "examples/demo-photo-1.svg",
+      "width": 1200,
+      "height": 1200,
+      "label": "Photo 1"
+    },
+    {
+      "id": "photo-2",
+      "path": "examples/demo-photo-2.svg",
+      "width": 1200,
+      "height": 1200,
+      "label": "Photo 2"
+    },
+    {
+      "id": "photo-3",
+      "path": "examples/demo-photo-3.svg",
+      "width": 1200,
+      "height": 1200,
+      "label": "Photo 3"
+    },
+    {
+      "id": "photo-4",
+      "path": "examples/demo-photo-4.svg",
+      "width": 1200,
+      "height": 1200,
+      "label": "Photo 4"
+    }
+  ],
+  "text": {
+    "title": "Photo Wall",
+    "subtitle": "Multiple images can enter as a grid from asset paths alone.",
+    "captions": [
+      "Template mode supports multi-image collages and stacks."
+    ]
+  },
+  "options": {
+    "intensity": "high",
+    "background": "gradient",
+    "fit": "cover"
+  }
+}

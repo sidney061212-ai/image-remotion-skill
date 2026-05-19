@@ -1,0 +1,112 @@
+{
+  "version": "1.0",
+  "task": {
+    "goal": "animate-infographic",
+    "platform": "generic",
+    "durationSeconds": 12,
+    "aspectRatio": "9:16",
+    "style": "clean"
+  },
+  "asset": {
+    "id": "infographic-demo",
+    "path": "examples/demo-infographic.svg",
+    "width": 1080,
+    "height": 1920,
+    "kind": "infographic",
+    "description": "A tall infographic with a title, two key metrics, a chart block, and a conclusion callout."
+  },
+  "visualStructure": {
+    "layout": "vertical-sections",
+    "regions": [
+      {
+        "id": "title",
+        "role": "title",
+        "label": "Main title",
+        "x": 120,
+        "y": 120,
+        "w": 840,
+        "h": 180,
+        "importance": 0.95,
+        "order": 1
+      },
+      {
+        "id": "metric-left",
+        "role": "number",
+        "label": "Key metric left",
+        "x": 90,
+        "y": 420,
+        "w": 390,
+        "h": 280,
+        "importance": 0.9,
+        "order": 2
+      },
+      {
+        "id": "metric-right",
+        "role": "number",
+        "label": "Key metric right",
+        "x": 600,
+        "y": 420,
+        "w": 390,
+        "h": 280,
+        "importance": 0.88,
+        "order": 3
+      },
+      {
+        "id": "chart",
+        "role": "chart",
+        "label": "Trend chart",
+        "x": 120,
+        "y": 840,
+        "w": 840,
+        "h": 420,
+        "importance": 0.92,
+        "order": 4
+      },
+      {
+        "id": "cta",
+        "role": "cta",
+        "label": "Bottom conclusion",
+        "x": 120,
+        "y": 1450,
+        "w": 840,
+        "h": 240,
+        "importance": 0.86,
+        "order": 5
+      }
+    ],
+    "readingOrder": ["title", "metric-left", "metric-right", "chart", "cta"],
+    "primaryRegionId": "cta"
+  },
+  "script": {
+    "title": "Weekly KPI Snapshot",
+    "captions": [
+      {
+        "text": "本周概览先看标题与主题。",
+        "attachToRegionId": "title"
+      },
+      {
+        "text": "左侧核心指标是第一重点。",
+        "attachToRegionId": "metric-left"
+      },
+      {
+        "text": "右侧指标用于补充对照。",
+        "attachToRegionId": "metric-right"
+      },
+      {
+        "text": "趋势图解释了变化方向。",
+        "attachToRegionId": "chart"
+      },
+      {
+        "text": "最后停在底部结论与行动建议。",
+        "attachToRegionId": "cta"
+      }
+    ]
+  },
+  "constraints": {
+    "avoidCroppingText": true,
+    "allowWhipPan": true,
+    "allowBlur": true,
+    "maxZoom": 2.2,
+    "minHoldSeconds": 0.9
+  }
+}

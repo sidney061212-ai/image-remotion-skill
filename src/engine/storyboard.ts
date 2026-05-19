@@ -1,8 +1,15 @@
+/**
+ * Legacy / experimental storyboard compiler.
+ *
+ * This path keeps the original script-intent -> T01-T16 template flow for
+ * backwards compatibility, but the recommended AI-facing mainline now starts
+ * from AiMotionRequest and compiles a MotionPlan instead.
+ */
 import {DEFAULT_FPS} from './constants';
 import {estimateSceneDuration, getPrimaryTemplates, inferIntent, inferVisualTarget, selectTemplate} from './selector';
-import type {Asset, FocusRegion, InputPackage, Scene, Storyboard, TemplateId} from '../types';
+import type {Asset, FocusRegion, InputPackage, LegacyTemplateId, Scene, Storyboard} from '../types';
 
-const pickAssetForIntent = (assets: Asset[], template: TemplateId): Asset | undefined => {
+const pickAssetForIntent = (assets: Asset[], template: LegacyTemplateId): Asset | undefined => {
   if (template === 'T08_SplitCompare' || template === 'T09_SwipeCompare') {
     return assets[0];
   }
@@ -14,7 +21,7 @@ const pickRegion = (asset: Asset | undefined): FocusRegion | undefined => {
   return [...asset.focusRegions].sort((a, b) => (b.importance ?? 0) - (a.importance ?? 0))[0];
 };
 
-const buildMotion = (template: TemplateId, region?: FocusRegion): Record<string, unknown> => {
+const buildMotion = (template: LegacyTemplateId, region?: FocusRegion): Record<string, unknown> => {
   switch (template) {
     case 'T01_HookZoomHit':
       return {scaleFrom: 1, scaleTo: 1.12, shake: 0.6};
@@ -35,7 +42,7 @@ const buildMotion = (template: TemplateId, region?: FocusRegion): Record<string,
   }
 };
 
-const buildOverlay = (template: TemplateId, region?: FocusRegion): Record<string, unknown> | undefined => {
+const buildOverlay = (template: LegacyTemplateId, region?: FocusRegion): Record<string, unknown> | undefined => {
   if (template === 'T11_EvidencePin') {
     return {arrow: true, label: region?.label ?? '重点'};
   }

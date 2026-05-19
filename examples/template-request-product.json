@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "task": {
+    "imageCategory": "product",
+    "effectStyle": "product-hero",
+    "durationSeconds": 8,
+    "aspectRatio": "1:1",
+    "fps": 60
+  },
+  "assets": [
+    {
+      "id": "product-demo",
+      "path": "examples/demo-product.svg",
+      "width": 1600,
+      "height": 1600,
+      "label": "Product hero demo"
+    }
+  ],
+  "text": {
+    "title": "Product Hero",
+    "subtitle": "Single product image with floating-card treatment and highlight sweep."
+  },
+  "options": {
+    "intensity": "medium",
+    "background": "blur",
+    "fit": "contain"
+  }
+}

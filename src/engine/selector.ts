@@ -1,5 +1,5 @@
 import {ASSET_TEMPLATE_MAP, INTENT_TEMPLATE_MAP, TEMPLATE_DURATIONS} from './constants';
-import type {Asset, Intent, Scene, ScriptLine, TemplateId} from '../types';
+import type {Asset, Intent, LegacyTemplateId, Scene, ScriptLine} from '../types';
 
 const hookRegex = /(很多人|第一眼|你以为|其实不是|别再|千万别)/;
 const claimRegex = /(核心|关键点|本质|真正的问题|结论)/;
@@ -38,7 +38,7 @@ export const inferVisualTarget = (
   return 'whole-image';
 };
 
-export const selectTemplate = (intent: Intent, asset?: Asset): TemplateId => {
+export const selectTemplate = (intent: Intent, asset?: Asset): LegacyTemplateId => {
   const intentOptions = INTENT_TEMPLATE_MAP[intent];
   if (!asset) return intentOptions[0];
 
@@ -59,7 +59,7 @@ export const selectTemplate = (intent: Intent, asset?: Asset): TemplateId => {
 };
 
 export const estimateSceneDuration = (
-  template: TemplateId,
+  template: LegacyTemplateId,
   pace: 'fast' | 'medium' | 'steady',
   textLength: number,
 ): number => {
@@ -69,8 +69,8 @@ export const estimateSceneDuration = (
   return Number(Math.max(min, Math.min(max, base * factor)).toFixed(2));
 };
 
-export const getPrimaryTemplates = (scenes: Scene[]): TemplateId[] => {
-  const result: TemplateId[] = [];
+export const getPrimaryTemplates = (scenes: Scene[]): LegacyTemplateId[] => {
+  const result: LegacyTemplateId[] = [];
   for (const scene of scenes) {
     if (!result.includes(scene.template)) {
       result.push(scene.template);

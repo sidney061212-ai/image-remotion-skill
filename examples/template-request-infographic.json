@@ -1,0 +1,32 @@
+{
+  "version": "1.0",
+  "task": {
+    "imageCategory": "infographic",
+    "effectStyle": "clean-zoom",
+    "durationSeconds": 10,
+    "aspectRatio": "9:16",
+    "fps": 60
+  },
+  "assets": [
+    {
+      "id": "infographic-demo",
+      "path": "examples/demo-infographic-clean.svg",
+      "width": 1080,
+      "height": 1920,
+      "label": "Clean template infographic demo"
+    }
+  ],
+  "text": {
+    "title": "Template-First Motion",
+    "subtitle": "Single infographic input with only coarse category and text",
+    "captions": [
+      "AI only needs a rough image category and text.",
+      "The skill picks a Remotion template automatically."
+    ]
+  },
+  "options": {
+    "intensity": "medium",
+    "background": "gradient",
+    "fit": "contain"
+  }
+}
