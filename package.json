@@ -18,6 +18,7 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "build": "tsc -p tsconfig.json",
+    "test": "tsx src/test/run-tests.ts",
     "prepare": "npm run build",
     "prepack": "npm run build",
     "dev": "remotion studio src/remotion/index.ts",
@@ -40,6 +41,7 @@
   },
   "dependencies": {
     "@remotion/cli": "^4.0.452",
+    "ajv": "^8.17.1",
     "remotion": "^4.0.340"
   },
   "devDependencies": {

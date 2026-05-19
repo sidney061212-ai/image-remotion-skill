@@ -1,8 +1,70 @@
+import {createRequire} from 'node:module';
+import Ajv2020, {type ErrorObject} from 'ajv/dist/2020.js';
 import type {AiMotionRequest} from '../types';
 
 export const AI_WARNING_PREFIX = 'WARNING: ';
 
+const require = createRequire(import.meta.url);
+const aiMotionRequestSchema = require('../../schemas/ai-motion-request.schema.json') as Record<string, unknown>;
+const ajv = new Ajv2020({
+  allErrors: true,
+  strict: false,
+});
+const validateRequestSchema = ajv.compile(aiMotionRequestSchema);
+
 const warning = (message: string): string => `${AI_WARNING_PREFIX}${message}`;
+
+const formatPath = (instancePath: string): string => {
+  if (!instancePath) {
+    return 'request';
+  }
+
+  return instancePath
+    .slice(1)
+    .split('/')
+    .map((segment) => segment.replace(/~1/g, '/').replace(/~0/g, '~'))
+    .join('.');
+};
+
+const formatSchemaError = (error: ErrorObject): string => {
+  const path = formatPath(error.instancePath);
+
+  if (error.keyword === 'required' && 'missingProperty' in error.params) {
+    const missingProperty = String(error.params.missingProperty);
+    return `${path}.${missingProperty} is required.`;
+  }
+
+  if (error.keyword === 'additionalProperties' && 'additionalProperty' in error.params) {
+    const additionalProperty = String(error.params.additionalProperty);
+    return `${path} contains unsupported property '${additionalProperty}'.`;
+  }
+
+  if (error.keyword === 'enum' && Array.isArray(error.params.allowedValues)) {
+    return `${path} must be one of: ${error.params.allowedValues.join(', ')}.`;
+  }
+
+  if (error.keyword === 'const' && 'allowedValue' in error.params) {
+    return `${path} must be exactly ${JSON.stringify(error.params.allowedValue)}.`;
+  }
+
+  if (error.keyword === 'type' && 'type' in error.params) {
+    return `${path} must be of type ${String(error.params.type)}.`;
+  }
+
+  if (error.keyword === 'minimum' && 'limit' in error.params) {
+    return `${path} must be >= ${String(error.params.limit)}.`;
+  }
+
+  if (error.keyword === 'maximum' && 'limit' in error.params) {
+    return `${path} must be <= ${String(error.params.limit)}.`;
+  }
+
+  if (error.keyword === 'exclusiveMinimum' && 'limit' in error.params) {
+    return `${path} must be > ${String(error.params.limit)}.`;
+  }
+
+  return `${path} ${error.message ?? 'is invalid.'}`;
+};
 
 export const splitAiMotionDiagnostics = (diagnostics: string[]): {errors: string[]; warnings: string[]} => {
   const warnings: string[] = [];
@@ -19,33 +81,22 @@ export const splitAiMotionDiagnostics = (diagnostics: string[]): {errors: string
   return {errors, warnings};
 };
 
-export function validateAiMotionRequest(request: AiMotionRequest): string[] {
+export function validateAiMotionRequest(request: unknown): string[] {
   const diagnostics: string[] = [];
 
-  if (request.version !== '1.0') {
-    diagnostics.push(`request.version must be '1.0', received '${request.version}'.`);
+  if (!validateRequestSchema(request)) {
+    for (const error of validateRequestSchema.errors ?? []) {
+      diagnostics.push(formatSchemaError(error));
+    }
+
+    return diagnostics;
   }
 
-  if (request.task.durationSeconds < 3 || request.task.durationSeconds > 120) {
-    diagnostics.push('task.durationSeconds must be between 3 and 120 seconds.');
-  }
-
-  if (!request.asset.path?.trim()) {
-    diagnostics.push('asset.path is required.');
-  }
-
-  if (!request.asset.width || request.asset.width <= 0) {
-    diagnostics.push('asset.width must be greater than 0.');
-  }
-
-  if (!request.asset.height || request.asset.height <= 0) {
-    diagnostics.push('asset.height must be greater than 0.');
-  }
-
+  const typedRequest = request as AiMotionRequest;
   const regionIds = new Set<string>();
-  const regionMap = new Map(request.visualStructure.regions.map((region) => [region.id, region]));
+  const regionMap = new Map(typedRequest.visualStructure.regions.map((region) => [region.id, region]));
 
-  for (const region of request.visualStructure.regions) {
+  for (const region of typedRequest.visualStructure.regions) {
     if (!region.id.trim()) {
       diagnostics.push('visualStructure.regions[].id is required.');
       continue;
@@ -56,30 +107,22 @@ export function validateAiMotionRequest(request: AiMotionRequest): string[] {
     }
     regionIds.add(region.id);
 
-    if (region.w <= 0 || region.h <= 0) {
-      diagnostics.push(`Region '${region.id}' must have positive width and height.`);
-    }
-
-    if (region.x < 0 || region.y < 0) {
-      diagnostics.push(`Region '${region.id}' must stay within the image bounds.`);
-    }
-
-    if (region.x + region.w > request.asset.width || region.y + region.h > request.asset.height) {
+    if (region.x + region.w > typedRequest.asset.width || region.y + region.h > typedRequest.asset.height) {
       diagnostics.push(`Region '${region.id}' extends beyond the source image bounds.`);
     }
   }
 
-  for (const regionId of request.visualStructure.readingOrder) {
+  for (const regionId of typedRequest.visualStructure.readingOrder) {
     if (!regionMap.has(regionId)) {
       diagnostics.push(`readingOrder references unknown region '${regionId}'.`);
     }
   }
 
-  if (request.visualStructure.primaryRegionId && !regionMap.has(request.visualStructure.primaryRegionId)) {
-    diagnostics.push(`primaryRegionId references unknown region '${request.visualStructure.primaryRegionId}'.`);
+  if (typedRequest.visualStructure.primaryRegionId && !regionMap.has(typedRequest.visualStructure.primaryRegionId)) {
+    diagnostics.push(`primaryRegionId references unknown region '${typedRequest.visualStructure.primaryRegionId}'.`);
   }
 
-  const captions = request.script?.captions ?? [];
+  const captions = typedRequest.script?.captions ?? [];
   for (const [index, caption] of captions.entries()) {
     if (caption.start !== undefined && caption.end !== undefined && caption.end < caption.start) {
       diagnostics.push(`script.captions[${index}] has end before start.`);
@@ -90,18 +133,20 @@ export function validateAiMotionRequest(request: AiMotionRequest): string[] {
     }
   }
 
-  if (request.task.goal === 'animate-storyboard') {
-    const panelCount = request.visualStructure.regions.filter((region) => region.role === 'panel').length;
+  if (typedRequest.task.goal === 'animate-storyboard') {
+    const panelCount = typedRequest.visualStructure.regions.filter((region) => region.role === 'panel').length;
     if (panelCount < 2) {
       diagnostics.push(warning('animate-storyboard works best with at least two regions whose role is panel.'));
     }
   }
 
-  if (request.task.goal === 'animate-comparison') {
-    const hasLeft = request.visualStructure.regions.some((region) => region.role === 'comparison-left');
-    const hasRight = request.visualStructure.regions.some((region) => region.role === 'comparison-right');
+  if (typedRequest.task.goal === 'animate-comparison') {
+    const hasLeft = typedRequest.visualStructure.regions.some((region) => region.role === 'comparison-left');
+    const hasRight = typedRequest.visualStructure.regions.some((region) => region.role === 'comparison-right');
     if (!hasLeft || !hasRight) {
-      diagnostics.push(warning('animate-comparison works best when both comparison-left and comparison-right regions are provided.'));
+      diagnostics.push(
+        warning('animate-comparison works best when both comparison-left and comparison-right regions are provided.'),
+      );
     }
   }
 

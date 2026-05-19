@@ -39,6 +39,21 @@ AiMotionRequest -> validate -> selectMotionRecipe -> compileMotionPlan -> Motion
 
 ---
 
+## Upstream AI Contract
+
+调用这个 skill 的上层 AI 必须遵守这些约束：
+
+- AI 必须先分析图片，再生成结构化请求
+- AI 必须提供 source image `width` / `height`
+- `visualStructure.regions` 坐标必须是**原图像素坐标**
+- `readingOrder` 只能引用 `regions` 中真实存在的 `id`
+- 这个 skill 不做 OCR、不做图片理解、不自动猜区域
+- `preferredRecipe` 只有在 AI 非常确定时才传，否则应让 selector 自动判断
+- 如果图是分景图 / 漫画分格图，推荐 `goal=animate-storyboard`、`layout=comic-panels`、region `role=panel`
+- 如果图是信息图，推荐 `goal=animate-infographic`、`layout=vertical-sections` / `timeline` / `mixed`，region `role` 优先使用 `title` / `number` / `chart` / `step` / `detail` / `cta`
+
+---
+
 ## Core Formats
 
 AI 请求输入：
@@ -95,12 +110,19 @@ AI 请求输入：
 npm install
 npm run typecheck
 npm run build
+npm run test
 ```
 
 编译 MotionPlan：
 
 ```bash
 npm run plan:ai -- examples/ai-request-infographic.json outputs/infographic-plan.json
+```
+
+也可以用 storyboard example：
+
+```bash
+npm run plan:ai -- examples/ai-request-storyboard.json outputs/storyboard-plan.json
 ```
 
 渲染 MP4：

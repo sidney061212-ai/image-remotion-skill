@@ -36,6 +36,9 @@ export function buildMotionPlanFromAiRequest(request: AiMotionRequest): MotionPl
 
   const recipeId = selectMotionRecipe(request);
   const compileRecipe = COMPILERS[recipeId];
+  if (!compileRecipe) {
+    throw new Error(`Unsupported MotionRecipeId: ${recipeId}`);
+  }
   const compiled = compileRecipe(request);
   const outputSize = getOutputSize(request.task.aspectRatio);
   const constraints = getNormalizedConstraints(request);
